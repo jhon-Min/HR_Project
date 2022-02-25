@@ -1,0 +1,24 @@
+.btn-theme {
+  color: #fff;
+  background-color: #4cd195;
+}
+
+.btn-theme:hover {
+  color: #fff;
+}
+
+.bottom-menu {
+  bottom: 0;
+  width: 100%;
+  box-shadow: 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.bottom-menu a {
+  text-align: center;
+}
+
+.bottom-menu a span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
