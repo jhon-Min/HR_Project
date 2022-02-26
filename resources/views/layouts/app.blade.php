@@ -19,12 +19,15 @@
     @yield('head')
 </head>
 <body>
+
     <div class="header-menu shadow py-3">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href=""></a>
+                        <a href="">
+
+                        </a>
                         <h4 class="font-weight-bold">Ninja HR</h4>
                         <a href=""></a>
                     </div>
@@ -71,6 +74,8 @@
         </div>
     </div>
 
+    @include('layouts.sidebar')
+
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap tooltips -->
@@ -81,6 +86,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+    <script src="{{ asset('js/sidebar.js') }}"></script>
+
     @yield('script')
 </body>
 </html>

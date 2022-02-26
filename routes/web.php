@@ -17,4 +17,5 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'PageController@home')->name('home');
+    Route::resource('employee', 'EmployeeController');
 });
