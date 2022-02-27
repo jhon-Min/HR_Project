@@ -1,9 +1,21 @@
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
+// MD Bootstrap and Other libraries
+@import "~mdbootstrap/css/bootstrap.min.css";
+@import "~mdbootstrap/css/mdb.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+// ============== Custom Css ==============
+@import "./sidebar";
+
+// ============= Global Css =============
+$primary-col: #4cd195;
+
+.pb-8 {
+    padding-bottom: 80px;
+}
 
 .btn-theme {
     color: #fff;
-    background-color: #4cd195;
+    background-color: $primary-col;
 
     &:hover {
         color: #fff;
@@ -23,5 +35,3 @@
         }
     }
 }
-
-@import "./sidebar";

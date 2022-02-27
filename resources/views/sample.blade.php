@@ -34,23 +34,3 @@
     </div>
 @endsection
 
-@section('script')
-  <script>
-        $(document).ready(function () {
-            $('#dataTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ route('emp.ssd') }}',
-                columns: [
-                    { data: 'name', name: 'name', class: 'text-center' },
-                    { data: 'name', name: 'name', class: 'text-center' },
-                    { data: 'phone', name: 'phone', class: 'text-center' },
-                    { data: 'email', name: 'email', class: 'text-center' },
-                    { data: 'dep', name: 'dep', class: 'text-center' },
-                    { data: 'is_present', name: 'is_present', class: 'text-center' },
-                ]
-            });
-        })
-  </script>
-@endsection
-

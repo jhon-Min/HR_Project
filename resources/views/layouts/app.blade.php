@@ -6,14 +6,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <!-- Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
-    <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <!-- DataTable -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
+
+    {{-- Date Range Picker --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('head')
@@ -40,31 +39,31 @@
         @yield('content')
     </div>
 
-    <div class="bottom-menu position-absolute shadow py-2">
+    <div class="bottom-menu position-fixed bg-white border-top py-2">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col col-md-8">
                     <div class="d-flex justify-content-between">
                         <a href="http://" class="text-dark">
-                            <i class="fas fa-home"></i>
+                            <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
                         </a>
 
                         <a href="http://" class="text-dark">
-                            <i class="fas fa-home"></i>
+                            <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
                         </a>
 
                         <a href="http://" class="text-dark">
-                            <i class="fas fa-home"></i>
+                            <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
                         </a>
 
                         <a href="http://" class="text-dark">
-                            <i class="fas fa-home"></i>
+                            <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
                         </a>
@@ -78,14 +77,24 @@
 
     <!-- JQuery -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+
     <!-- Bootstrap core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+    <!-- Datatable JavaScript -->
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Datarange Picker JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
     <script src="{{ asset('js/sidebar.js') }}"></script>
 
     @yield('script')
