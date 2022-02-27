@@ -18,4 +18,5 @@ Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'PageController@home')->name('home');
     Route::resource('employee', 'EmployeeController');
+    Route::get('employee/datatable/ssd', 'EmployeeController@ssd')->name('emp.ssd');
 });
