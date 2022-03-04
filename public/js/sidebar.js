@@ -11,6 +11,14 @@ jQuery(function ($) {
         }
     });
 
+    document.addEventListener("click", (e) => {
+        if (document.getElementById("show-sidebar").contains(e.target)) {
+            $(".page-wrapper").addClass("toggled");
+        } else if (!document.getElementById("sidebar").contains(e.target)) {
+            $(".page-wrapper").removeClass("toggled");
+        }
+    });
+
     $("#close-sidebar").click(function () {
         $(".page-wrapper").removeClass("toggled");
     });

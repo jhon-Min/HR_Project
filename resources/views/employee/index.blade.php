@@ -42,7 +42,7 @@
                 serverSide: true,
                 ajax: '{{ route('emp.ssd') }}',
                 columns: [
-                    { data: 'name', name: 'name', class: 'text-center' },
+                    { data: 'employee_id', name: 'employee_id', class: 'text-center' },
                     { data: 'name', name: 'name', class: 'text-center' },
                     { data: 'phone', name: 'phone', class: 'text-center' },
                     { data: 'email', name: 'email', class: 'text-center' },

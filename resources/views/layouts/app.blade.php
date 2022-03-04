@@ -95,8 +95,18 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('js/sidebar.js') }}"></script>
 
     @yield('script')
+
+    @auth
+        @include('layouts.toast')
+    @endauth
 </body>
 </html>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
 use App\User;
+use App\Department;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreEmployee;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
@@ -37,8 +39,23 @@ class EmployeeController extends Controller
         return view('employee.create', compact('departments'));
     }
 
-    public function store(Request $request)
+    public function store(StoreEmployee $request)
     {
-        return $request;
+        $employee = new User();
+        $employee->employee_id = $request->employee_id;
+        $employee->name = $request->name;
+        $employee->phone = $request->phone;
+        $employee->email = $request->email;
+        $employee->password = Hash::make($request->password);
+        $employee->nrc_number = $request->nrc_number;
+        $employee->gender = $request->gender;
+        $employee->dep_id = $request->dep_id;
+        $employee->birthday = $request->birthday;
+        $employee->address = $request->address;
+        $employee->date_of_join = $request->date_of_join;
+        $employee->is_present = $request->is_present;
+        $employee->save();
+
+        return redirect()->route('employee.index')->with('toast', ['icon' => 'success', 'title' => 'Employee is successfully created']);;
     }
 }
