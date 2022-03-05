@@ -26,10 +26,10 @@ class StoreEmployee extends FormRequest
         return [
             'employee_id' => 'required',
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:9|max:11',
             'email' => 'required',
-            'password' => 'required',
-            'nrc_number' => 'required',
+            'password' => 'required|min:4|max:255',
+            'nrc_number' => 'required|min:3',
             'gender' => 'required',
             'dep_id' => 'required',
             'birthday' => 'required|date',

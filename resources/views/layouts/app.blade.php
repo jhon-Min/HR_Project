@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- DataTable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 
     {{-- Date Range Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -27,7 +28,7 @@
                         <a href="">
 
                         </a>
-                        <h4 class="font-weight-bold">Ninja HR</h4>
+                        <h4 class="font-weight-bold">@yield('banner', 'Ninja HR')</h4>
                         <a href=""></a>
                     </div>
                 </div>
@@ -90,6 +91,7 @@
     <!-- Datatable JavaScript -->
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
     <!-- Datarange Picker JavaScript -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -107,6 +109,8 @@
 
     @auth
         @include('layouts.toast')
+
+        @include('layouts.create-alert')
     @endauth
 </body>
 </html>

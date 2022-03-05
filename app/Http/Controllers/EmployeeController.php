@@ -6,6 +6,7 @@ use App\User;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEmployee;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -28,6 +29,12 @@ class EmployeeController extends Controller
                 } else {
                     return ' <span class="badge badge-pill badge-danger p-2">Leave</span>';
                 }
+            })
+            ->editColumn('updated_at', function ($each) {
+                return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
+            })
+            ->addColumn('plus-icon', function ($eact) {
+                return null;
             })
             ->rawColumns(['is_present'])
             ->make(true);
@@ -56,6 +63,6 @@ class EmployeeController extends Controller
         $employee->is_present = $request->is_present;
         $employee->save();
 
-        return redirect()->route('employee.index')->with('toast', ['icon' => 'success', 'title' => 'Employee is successfully created']);;
+        return redirect()->route('employee.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => 'Employee is successfully created']);
     }
 }
