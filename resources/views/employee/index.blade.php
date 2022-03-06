@@ -26,6 +26,7 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Department</th>
                                 <th class="text-center">Is Present</th>
+                                <th class="text-center">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
                         </table>
@@ -51,11 +52,12 @@
                     { data: 'phone', name: 'phone', class: 'text-center' },
                     { data: 'email', name: 'email', class: 'text-center' },
                     { data: 'dep', name: 'dep', class: 'text-center' },
+                    { data: 'action', name: 'action', class: 'text-center' },
                     { data: 'is_present', name: 'is_present', class: 'text-center' },
                     { data: 'updated_at', name: 'updated_at', class: 'text-center' },
                 ],
                 order: [
-                    [6, "desc"]
+                    [8, "desc"]
                 ],
                 "columnDefs": [
                     {
