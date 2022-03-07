@@ -138,7 +138,9 @@
 
 
 
-                                <div class="border rounded p-3">
+                                <div class="border rounded p-3 @error('profile_img')
+                                    broder border-danger
+                                @enderror">
                                     <div class="d-flex align-items-center">
                                         <div class="d-flex justify-content-center align-items-center bg-light border py-2 px-3 emp-profile" id="upload-ui">
                                             <i class="fas fa-upload fs-4"></i>
@@ -148,6 +150,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                @error('profile_img')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div>

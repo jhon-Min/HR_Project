@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use App\Department;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreEmployee;
-use App\Http\Requests\UpdateEmployee;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UpdateEmployee;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
@@ -55,7 +56,6 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployee $request)
     {
-        return $request;
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -69,6 +69,15 @@ class EmployeeController extends Controller
         $employee->address = $request->address;
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
+
+        if ($request->hasFile('profile_img')) {
+            $file = $request->file('profile_img');
+            $newName = 'profile_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::disk('public')->put('employee/' . $newName, file_get_contents($file));
+
+            $employee->profile_img = $newName;
+        }
+
         $employee->save();
 
         return redirect()->route('employee.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => 'Employee is successfully created']);

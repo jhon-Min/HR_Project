@@ -35,7 +35,8 @@ class StoreEmployee extends FormRequest
             'birthday' => 'required|date',
             'address' => 'required',
             'date_of_join' => 'required|date',
-            'is_present' => 'required'
+            'is_present' => 'required',
+            'profile_img' => 'nullable|file|mimes:png,jpg|max:15000'
         ];
     }
 }
