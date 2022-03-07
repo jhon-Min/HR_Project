@@ -4,6 +4,16 @@
     Create Employee
 @endsection
 
+@section('head')
+    <style>
+        .preview_img img{
+            border-radius: 5px;
+            width: 100px;
+            object-fit: cover;
+        }
+    </style>
+@endsection
+
 @section('banner')
     Employee Create Form
 @endsection
@@ -14,7 +24,7 @@
             <div class="col-12 col-md-8">
                 <div class="card">
                     <div class="card-body px-4 ">
-                        <form action="{{ route('employee.store') }}" id="createForm" method="POST">
+                        <form action="{{ route('employee.store') }}" id="createForm" method="POST" enctype="multipart/form-data">
                              @csrf
                             <div class="md-form mb-3">
                                 <label for="emp">Employee ID</label>
@@ -111,7 +121,7 @@
                                 @enderror --}}
                             </div>
 
-                            <div class="form-group mb-5">
+                            <div class="form-group mb-3">
                                 <label for="" class="text-black-50">Is Present</label>
                                 <select class="form-control" name="is_present">
                                     <option value="1">Yes</option>
@@ -120,6 +130,24 @@
                                 {{-- @error('is_pressent')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
+                            </div>
+
+                            <div class="form-group mb-5">
+                                <label for="profile_img">Profile Image</label>
+                                <input type="file" name="profile_img" class="form-control p-1 d-none" id="profile_img">
+
+
+
+                                <div class="border rounded p-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="d-flex justify-content-center align-items-center bg-light border py-2 px-3 emp-profile" id="upload-ui">
+                                            <i class="fas fa-upload fs-4"></i>
+                                        </div>
+
+                                        <div class="preview_img my-2 ml-3">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div>
@@ -153,6 +181,17 @@
                 "showDropdowns": true,
                 "locale": {
                     "format": "YYYY-MM-DD",
+                }
+            });
+
+            let input = document.getElementById('profile_img');
+            document.getElementById('upload-ui').addEventListener("click",_=>input.click());
+
+            $('#profile_img').on('change', function(){
+                var file_length = input.files.length;
+                $('.preview_img').html('');
+                for(var i = 0; i < file_length; i++){
+                    $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`);
                 }
             });
         });

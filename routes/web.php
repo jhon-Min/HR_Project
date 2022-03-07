@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'PageController@home')->name('home');

@@ -55,6 +55,7 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployee $request)
     {
+        return $request;
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -98,5 +99,11 @@ class EmployeeController extends Controller
         $employee->update();
 
         return redirect()->route('employee.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => $employee->name . ' is successfully updated']);
+    }
+
+    public function show($id)
+    {
+        $employee = User::findOrFail($id);
+        return view('employee.show', compact('employee'));
     }
 }

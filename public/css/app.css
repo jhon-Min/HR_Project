@@ -7613,3 +7613,9 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
   font-weight: bold;
 }
 
+.emp-profile {
+  width: 90px;
+  height: 150px;
+  border-radius: 5px;
+}
+
