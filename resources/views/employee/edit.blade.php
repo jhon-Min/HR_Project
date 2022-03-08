@@ -9,14 +9,23 @@
 @endsection
 
 @section('content')
-    <div class="container pt-3 pb-8">
+    <div class="container pt-5 pb-8">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
                 <div class="card">
                     <div class="card-body px-4 ">
-                        <form action="{{ route('employee.update', $employee->id) }}" id="editForm" method="POST">
+                        <div class="mb-5 position-relative">
+                            <img src="{{ $employee->profile_img_path() }}" alt="" class="border shadow-sm emp-edit-profile">
+                            <button class="btn btn-sm position-absolute emp-profile-btn" id="upload-ui">
+                                <i class="fa-solid fa-pencil"></i>
+                            </button>
+                        </div>
+
+                        <form action="{{ route('employee.update', $employee->id) }}" id="editForm" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
+
+                            <input type="file" accept="image/jpeg,image/png" id="profile-input" class="d-none" name="profile_img">
 
                             <div class="md-form mb-3">
                                 <label for="emp">Employee ID</label>
@@ -165,6 +174,20 @@
                     "format": "YYYY-MM-DD",
                 }
             });
+
+            let input = document.getElementById("profile-input");
+            let addBtn = document.getElementById("upload-ui");
+            let profile = document.querySelector(".emp-edit-profile");
+
+            addBtn.addEventListener("click", (_e) => input.click());
+            input.addEventListener("change", _=>{
+                let file = input.files[0];
+                let reader = new FileReader();
+                reader.onload = function (){
+                    profile.src = reader.result;
+                }
+                reader.readAsDataURL(file);
+            })
         });
     </script>
 @endsection

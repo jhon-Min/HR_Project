@@ -25,8 +25,8 @@
                                 <th class="text-center">Phone</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Department</th>
+                                <th class="text-center no-sort">Action</th>
                                 <th class="text-center">Is Present</th>
-                                <th class="text-center">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
                         </table>

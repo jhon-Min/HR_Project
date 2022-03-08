@@ -29,14 +29,14 @@ class UpdateEmployee extends FormRequest
             'name' => 'required',
             'phone' => 'required|min:9|max:11|unique:users,phone,' . $id,
             'email' => 'required|unique:users,email,' . $id,
-            'password' => 'required|min:4|max:255',
             'nrc_number' => 'required|min:3',
             'gender' => 'required',
             'dep_id' => 'required',
             'birthday' => 'required|date',
             'address' => 'required',
             'date_of_join' => 'required|date',
-            'is_present' => 'required'
+            'is_present' => 'required',
+            'profile_img' => 'nullable|file|mimes:png,jpg|max:15000'
         ];
     }
 }

@@ -93,11 +93,20 @@ class EmployeeController extends Controller
     public function update(UpdateEmployee $request, $id)
     {
         $employee = User::findOrFail($id);
+        if ($request->hasFile('profile_img')) {
+            Storage::disk('public')->delete('employee/' . $employee->profile_img);
+
+            $file = $request->file('profile_img');
+            $newName = 'profile_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            Storage::disk('public')->put('employee/' . $newName, file_get_contents($file));
+
+            $employee->profile_img = $newName;
+        }
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
         $employee->phone = $request->phone;
         $employee->email = $request->email;
-        $employee->password = Hash::make($request->password);
+        $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
         $employee->nrc_number = $request->nrc_number;
         $employee->gender = $request->gender;
         $employee->dep_id = $request->dep_id;
