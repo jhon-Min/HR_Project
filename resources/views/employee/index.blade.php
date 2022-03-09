@@ -41,9 +41,6 @@
   <script>
         $(document).ready(function () {
             var table = $('#dataTable').DataTable({
-                processing: true,
-                serverSide: true,
-                responsive: true,
                 ajax: '{{ route('emp.ssd') }}',
                 columns: [
                     { data: 'plus-icon', name: 'plus-icon', class: 'text-center' },
@@ -59,28 +56,6 @@
                 order: [
                     [8, "desc"]
                 ],
-                "columnDefs": [
-                    {
-                        "targets": "hidden",
-                        "visible": false
-                    },
-                    {
-                        "targets": [0],
-                        "class": "control"
-                    },
-                    {
-                        "targets": "no-sort",
-                        "orderable": false
-                    },
-
-                ],
-                "language": {
-                    "paginate": {
-                        "next": '<i class="fa-solid fa-circle-arrow-right pg-next h5"></i>',
-                        "previous": '<i class="fa-solid fa-circle-arrow-left pg-pre h5"></i>'
-                    },
-                    "processing":'<div class="spinner-grow text-success" role="status"><span class="sr-only">.....Loading...</span></div>',
-                }
             });
 
             $(document).on('click', '.del-btn', function(e, id){

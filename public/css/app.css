@@ -7143,13 +7143,18 @@ body {
 
 /*----------------show sidebar button----------------*/
 
-#show-sidebar {
+#show-sidebar,
+#back {
   position: fixed;
   left: 0;
   top: 10px;
   border-radius: 0 4px 4px 0px;
   width: 35px;
   transition-delay: 0.3s;
+}
+
+#back i {
+  font-size: 15px;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -7544,6 +7549,11 @@ body {
 
 .chiller-theme .sidebar-footer > a:last-child {
   border-right: none;
+}
+
+mark {
+  background: orange;
+  color: black;
 }
 
 .pagination .page-item.active .page-link {

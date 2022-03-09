@@ -1,7 +1,13 @@
 <div class="page-wrapper chiller-theme">
+    @if (request()->is('/'))
     <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
-      <i class="fas fa-bars"></i>
+        <i class="fas fa-bars"></i>
     </a>
+    @else
+    <a id="back" class="btn btn-sm btn-dark" href="{{ route('home') }}">
+        <i class="fa-solid fa-arrow-left font-weight-bolder"></i>
+    </a>
+    @endif
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">

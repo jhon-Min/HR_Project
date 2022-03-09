@@ -25,6 +25,11 @@ class EmployeeController extends Controller
         return DataTables::of($employees)->addColumn('dep', function ($each) {
             return $each->department ? $each->department->title : '-';
         })
+            ->filterColumn('dep', function ($query, $keyword) {
+                $query->whereHas('department', function ($q) use ($keyword) {
+                    $q->where('title', 'like', "%$keyword%");
+                });
+            })
             ->editColumn('is_present', function ($each) {
                 if ($each->is_present == 1) {
                     return ' <span class="badge badge-pill badge-success p-2">Present</span>';
