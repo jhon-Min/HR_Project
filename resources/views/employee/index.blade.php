@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-           <div class="col-12 col-md-10">
+           <div class="col-12 col-md-11">
                 <div class="mb-2">
                     <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
                         <i class=" fas fa-plus-circle"></i>
@@ -40,7 +40,7 @@
 @section('script')
   <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
+            var table = $('#dataTable').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -82,6 +82,31 @@
                     "processing":'<div class="spinner-grow text-success" role="status"><span class="sr-only">.....Loading...</span></div>',
                 }
             });
+
+            $(document).on('click', '.del-btn', function(e, id){
+                e.preventDefault();
+
+                var id = $(this).data("id");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                        $.ajax({
+                            method: "DELETE",
+                            url: `/employee/${id}`,
+                        }).done(function(res){
+                            table.ajax.reload();
+                        })
+                    }
+                });
+            })
         })
   </script>
 @endsection

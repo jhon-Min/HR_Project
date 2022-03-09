@@ -40,9 +40,10 @@ class EmployeeController extends Controller
             })
             ->addColumn('action', function ($each) {
                 $edit = '<a href="' . route('employee.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
-                $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded"><i class="fa-solid fa-circle-info"></i></a>';
+                $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded mr-2"><i class="fa-solid fa-circle-info"></i></a>';
+                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
 
-                return '<div class="action-icon">' . $edit . $detail . '</div>';
+                return '<div class="action-icon">' . $edit . $detail . $del . '</div>';
             })
             ->rawColumns(['is_present', 'action'])
             ->make(true);
@@ -123,5 +124,12 @@ class EmployeeController extends Controller
     {
         $employee = User::findOrFail($id);
         return view('employee.show', compact('employee'));
+    }
+
+    public function destroy($id)
+    {
+        $employee = User::findOrFail($id);
+        Storage::disk('public')->delete('employee/' . $employee->profile_img);
+        $employee->delete();
     }
 }

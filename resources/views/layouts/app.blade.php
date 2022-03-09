@@ -18,9 +18,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('head')
 </head>
-<body>
+<body class="bg-light">
 
-    <div class="header-menu shadow py-3">
+    <div class="header-menu shadow py-3 bg-white">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -104,7 +104,6 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset('js/sidebar.js') }}"></script>
-
     @yield('script')
 
     @auth

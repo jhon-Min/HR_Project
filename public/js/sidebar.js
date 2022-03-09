@@ -25,4 +25,16 @@ jQuery(function ($) {
     $("#show-sidebar").click(function () {
         $(".page-wrapper").addClass("toggled");
     });
+
+    // Csrf token
+    let token = document.head.querySelector('meta[name="csrf-token"]');
+    if (token) {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": token.content,
+            },
+        });
+    } else {
+        console.log("csrf token not found");
+    }
 });
