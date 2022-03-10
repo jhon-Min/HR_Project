@@ -7143,13 +7143,18 @@ body {
 
 /*----------------show sidebar button----------------*/
 
-#show-sidebar {
+#show-sidebar,
+#back {
   position: fixed;
   left: 0;
   top: 10px;
   border-radius: 0 4px 4px 0px;
   width: 35px;
   transition-delay: 0.3s;
+}
+
+#back i {
+  font-size: 15px;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -7231,6 +7236,8 @@ body {
      object-fit: cover;
   height: 100%;
   width: 100%;
+  background-color: #eee;
+  padding: 2px;
 }
 
 .sidebar-wrapper .sidebar-header .user-info {
@@ -7517,8 +7524,8 @@ body {
 .chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus + span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
-  color: #16c7ff;
-  text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
+  color: #4cd195;
+  text-shadow: 0px 0px 10px #4cd195 22, 199, 255, 0.5;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
@@ -7546,8 +7553,97 @@ body {
   border-right: none;
 }
 
+mark {
+  background: orange;
+  color: black;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #4cd195 !important;
+  margin-top: 30px;
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details {
+  width: 100%;
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+  text-align: left !important;
+}
+
+.pg-next,
+.pg-pre {
+  color: #4cd195;
+}
+
+@media screen and (max-width: 767px) {
+  div.dataTables_wrapper div.dataTables_length,
+  div.dataTables_wrapper div.dataTables_filter,
+  div.dataTables_wrapper div.dataTables_info,
+  div.dataTables_wrapper div.dataTables_paginate {
+    text-align: left;
+  }
+
+  div.dataTables_filter {
+    margin: 15px 0px;
+  }
+
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    justify-content: end !important;
+  }
+}
+
+.emp-profile {
+  width: 90px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+.emp-profile-circle {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #4cd195;
+  border-radius: 50%;
+}
+
+.emp-edit-profile {
+  border: 2px solid lightgray !important;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-top: -65px;
+}
+
+.emp-profile-btn {
+  background: #4cd195;
+  left: 126px;
+  padding: 7px 10px !important;
+}
+
+.border-dash {
+  border-left: 3px dashed lightgray;
+}
+
+@media screen and (max-width: 767px) {
+  .border-dash {
+    border-left: none;
+  }
+}
+
 .pb-8 {
   padding-bottom: 80px;
+}
+
+.mb-8 {
+  margin-bottom: 80px;
+}
+
+.text-semi {
+  color: #555;
+}
+
+.text-theme {
+  color: #4cd195;
 }
 
 .btn-theme {
@@ -7572,5 +7668,10 @@ body {
 .bottom-menu a span {
   font-size: 14px;
   font-weight: bold;
+  color: #555 !important;
+}
+
+.bottom-menu a i {
+  font-size: 17px;
 }
 

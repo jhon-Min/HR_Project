@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- DataTable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
 
     {{-- Date Range Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -17,9 +18,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('head')
 </head>
-<body>
+<body class="bg-light">
 
-    <div class="header-menu shadow py-3">
+    <div class="header-menu shadow py-3 bg-white">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
@@ -27,7 +28,7 @@
                         <a href="">
 
                         </a>
-                        <h4 class="font-weight-bold">Ninja HR</h4>
+                        <h4 class="font-weight-bold">@yield('banner', 'Ninja HR')</h4>
                         <a href=""></a>
                     </div>
                 </div>
@@ -44,7 +45,7 @@
             <div class="row justify-content-center">
                 <div class="col col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="http://" class="text-dark">
+                        <a href="{{ route('home') }}" class="text-dark">
                             <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
@@ -62,10 +63,10 @@
                             <span>Home</span>
                         </a>
 
-                        <a href="http://" class="text-dark">
-                            <i class="fa-solid fa-house"></i>
+                        <a href="{{ route('user-profile.profile') }}" class="text-dark">
+                            <i class="fa-solid fa-user"></i>
                             <br>
-                            <span>Home</span>
+                            <span>Profile</span>
                         </a>
                     </div>
                 </div>
@@ -90,13 +91,28 @@
     <!-- Datatable JavaScript -->
     <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
 
     <!-- Datarange Picker JavaScript -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-    <script src="{{ asset('js/sidebar.js') }}"></script>
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
 
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="{{ asset('js/sidebar.js') }}"></script>
+    <script src="{{ asset('js/dtable.js') }}"></script>
     @yield('script')
+
+    @auth
+        @include('layouts.toast')
+
+        @include('layouts.create-alert')
+    @endauth
 </body>
 </html>

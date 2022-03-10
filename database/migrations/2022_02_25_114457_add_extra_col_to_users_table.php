@@ -14,6 +14,7 @@ class AddExtraColToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('profile_img')->nullable();
             $table->string('employee_id')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('nrc_number')->unique()->nullable();
@@ -34,7 +35,7 @@ class AddExtraColToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['employee_id', 'phone', 'nrc_number', 'birthday', 'gender', 'address', 'dep_id', 'date_of_join', 'is_present']);
+            $table->dropColumn(['profile_img', 'employee_id', 'phone', 'nrc_number', 'birthday', 'gender', 'address', 'dep_id', 'date_of_join', 'is_present']);
         });
     }
 }

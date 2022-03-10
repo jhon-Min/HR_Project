@@ -11,10 +11,24 @@ jQuery(function ($) {
         }
     });
 
+    document.addEventListener("click", (e) => {
+        if (document.getElementById("show-sidebar").contains(e.target)) {
+            $(".page-wrapper").addClass("toggled");
+        } else if (!document.getElementById("sidebar").contains(e.target)) {
+            $(".page-wrapper").removeClass("toggled");
+        }
+    });
+
     $("#close-sidebar").click(function () {
         $(".page-wrapper").removeClass("toggled");
     });
     $("#show-sidebar").click(function () {
         $(".page-wrapper").addClass("toggled");
     });
+
+    // $("#back").click(function (e) {
+    //     e.preventDefault();
+    //     window.history.go(-1);
+    //     return false;
+    // });
 });

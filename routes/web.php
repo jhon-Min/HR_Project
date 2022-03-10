@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', 'PageController@home')->name('home');
+    Route::get('/', 'PageController@home')->name('home');
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/datatable/ssd', 'EmployeeController@ssd')->name('emp.ssd');
+
+    // User Profile Controller
+    Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
 });
