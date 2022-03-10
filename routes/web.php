@@ -19,4 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', 'PageController@home')->name('home');
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/datatable/ssd', 'EmployeeController@ssd')->name('emp.ssd');
+
+    // User Profile Controller
+    Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
 });

@@ -45,7 +45,7 @@
             <div class="row justify-content-center">
                 <div class="col col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="http://" class="text-dark">
+                        <a href="{{ route('home') }}" class="text-dark">
                             <i class="fa-solid fa-house"></i>
                             <br>
                             <span>Home</span>
@@ -63,10 +63,10 @@
                             <span>Home</span>
                         </a>
 
-                        <a href="http://" class="text-dark">
-                            <i class="fa-solid fa-house"></i>
+                        <a href="{{ route('user-profile.profile') }}" class="text-dark">
+                            <i class="fa-solid fa-user"></i>
                             <br>
-                            <span>Home</span>
+                            <span>Profile</span>
                         </a>
                     </div>
                 </div>

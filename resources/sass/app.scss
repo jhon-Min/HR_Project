@@ -25,6 +25,10 @@ $semi-dark: #555;
     color: $semi-dark;
 }
 
+.text-theme {
+    color: $primary-col;
+}
+
 .btn-theme {
     color: #fff;
     background-color: $primary-col;
@@ -44,6 +48,11 @@ $semi-dark: #555;
         span {
             font-size: 14px;
             font-weight: bold;
+            color: $semi-dark !important;
+        }
+
+        i {
+            font-size: 17px;
         }
     }
 }
