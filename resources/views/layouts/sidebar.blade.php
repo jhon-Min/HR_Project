@@ -64,6 +64,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('role.index') }}">
+                    <i class="fa-solid fa-sliders"></i>
+                  <span>Role</span>
+                </a>
+            </li>
+
             <li class="sidebar-dropdown">
               <a href="#">
                 <i class="fa fa-tachometer-alt"></i>

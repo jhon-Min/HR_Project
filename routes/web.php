@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', 'DepartmentController');
     Route::get('department/datatable/ssd', 'DepartmentController@ssd')->name('department.ssd');
 
+    Route::resource('role', 'RoleController');
+    Route::get('department/role/ssd', 'RoleController@ssd')->name('role.ssd');
+
     // User Profile Controller
     Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
 });
