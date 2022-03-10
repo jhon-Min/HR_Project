@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Http\Requests\StoreDepartment;
+use App\Http\Requests\UpdateDepartment;
+use App\User;
+use Carbon\Carbon;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -14,7 +19,28 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('department.index');
+    }
+
+    public function ssd(Request $request)
+    {
+        $departments = Department::query();
+        return DataTables::of($departments)
+            ->editColumn('updated_at', function ($each) {
+                return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
+            })
+            ->addColumn('plus-icon', function ($each) {
+                return null;
+            })
+            ->addColumn('action', function ($each) {
+                $edit = '<a href="' . route('department.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+
+                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+
+                return '<div class="action-icon">' . $edit . $del . '</div>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     /**
@@ -24,7 +50,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('department.create');
     }
 
     /**
@@ -33,9 +59,13 @@ class DepartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDepartment $request)
     {
-        //
+        $department = new Department();
+        $department->title = $request->title;
+        $department->save();
+
+        return redirect()->route('department.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => $department->title . ' is successfully created']);
     }
 
     /**
@@ -57,7 +87,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return view('department.edit', compact('department'));
     }
 
     /**
@@ -67,9 +97,11 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(UpdateDepartment $request, Department $department)
     {
-        //
+        $department->title = $request->title;
+        $department->update();
+        return redirect()->route('department.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => $department->title . ' is successfully updated']);
     }
 
     /**
@@ -80,6 +112,6 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
     }
 }

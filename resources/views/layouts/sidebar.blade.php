@@ -46,7 +46,7 @@
             <li>
                 <a href="#">
                   <i class="fa fa-home"></i>
-                  <span>Examples</span>
+                  <span>Home</span>
                 </a>
             </li>
 
@@ -54,6 +54,13 @@
                 <a href="{{ route('employee.index') }}">
                   <i class="fa fa-users"></i>
                   <span>Employees</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('department.index') }}">
+                    <i class="fa-solid fa-sitemap"></i>
+                  <span>Department</span>
                 </a>
             </li>
 
