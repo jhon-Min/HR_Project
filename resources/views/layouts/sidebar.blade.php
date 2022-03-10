@@ -1,5 +1,5 @@
 <div class="page-wrapper chiller-theme">
-    @if (request()->is('/'))
+    {{-- @if (request()->is('/'))
     <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
         <i class="fas fa-bars"></i>
     </a>
@@ -7,7 +7,11 @@
     <a id="back" class="btn btn-sm btn-dark" href="{{ route('home') }}">
         <i class="fa-solid fa-arrow-left font-weight-bolder"></i>
     </a>
-    @endif
+    @endif --}}
+
+    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+        <i class="fas fa-bars"></i>
+    </a>
     <nav id="sidebar" class="sidebar-wrapper">
       <div class="sidebar-content">
         <div class="sidebar-brand">
@@ -43,33 +47,11 @@
               <span>General</span>
             </li>
 
-            <li>
-                <a href="#">
-                  <i class="fa fa-home"></i>
-                  <span>Home</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('employee.index') }}">
-                  <i class="fa fa-users"></i>
-                  <span>Employees</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('department.index') }}">
-                    <i class="fa-solid fa-sitemap"></i>
-                  <span>Department</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('role.index') }}">
-                    <i class="fa-solid fa-sliders"></i>
-                  <span>Role</span>
-                </a>
-            </li>
+            <x-menu-item icon="fa fa-home" link="{{ route('home') }}">Home</x-menu-item>
+            <x-menu-item icon="fa fa-users" link="{{ route('employee.index') }}">Employees</x-menu-item>
+            <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department</x-menu-item>
+            <x-menu-item icon="fa-solid fa-sliders" link="{{ route('role.index') }}">Role</x-menu-item>
+            <x-menu-item icon="fa-solid fa-user-shield" link="{{ route('permission.index') }}">Permission</x-menu-item>
 
             <li class="sidebar-dropdown">
               <a href="#">

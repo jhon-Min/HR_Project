@@ -491,3 +491,9 @@ body {
 .chiller-theme .sidebar-footer > a:last-child {
     border-right: none;
 }
+
+.active-item {
+    a {
+        color: $primary-col !important;
+    }
+}

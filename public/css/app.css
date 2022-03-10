@@ -7553,6 +7553,10 @@ body {
   border-right: none;
 }
 
+.active-item a {
+  color: #4cd195 !important;
+}
+
 mark {
   background: orange;
   color: black;
