@@ -30,6 +30,15 @@
     border-left: 3px dashed lightgray;
 }
 
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container--default.select2-container--focus
+    .select2-selection--multiple {
+    border: 1px solid $semi-dark;
+}
+
 @media screen and (max-width: 767px) {
     .border-dash {
         border-left: none;

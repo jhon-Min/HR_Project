@@ -6,11 +6,12 @@
 
 @section('head')
     <style>
-        .preview_img img{
+        .preview_img img {
             border-radius: 5px;
             width: 100px;
             object-fit: cover;
         }
+
     </style>
 @endsection
 
@@ -24,11 +25,13 @@
             <div class="col-12 col-md-8">
                 <div class="card">
                     <div class="card-body px-4 ">
-                        <form action="{{ route('employee.store') }}" id="createForm" method="POST" enctype="multipart/form-data">
-                             @csrf
+                        <form action="{{ route('employee.store') }}" id="createForm" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
                             <div class="md-form mb-3">
                                 <label for="emp">Employee ID</label>
-                                <input type="text" id="emp" class="form-control" value="{{ old('employee_id') }}" name="employee_id">
+                                <input type="text" id="emp" class="form-control" value="{{ old('employee_id') }}"
+                                    name="employee_id">
                                 {{-- @error('employee_id')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -44,7 +47,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="ph">Phone</label>
-                                <input type="number" id="ph" class="form-control" value="{{ old('phone') }}" name="phone">
+                                <input type="number" id="ph" class="form-control" value="{{ old('phone') }}"
+                                    name="phone">
                                 {{-- @error('phone')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -52,7 +56,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="eml">Email</label>
-                                <input type="email" id="eml" class="form-control" value="{{ old('email') }}" name="email">
+                                <input type="email" id="eml" class="form-control" value="{{ old('email') }}"
+                                    name="email">
                                 {{-- @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -60,7 +65,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="passwd">Password</label>
-                                <input type="password" id="passwd" class="form-control" value="{{ old('password') }}" name="password">
+                                <input type="password" id="passwd" class="form-control" value="{{ old('password') }}"
+                                    name="password">
                                 {{-- @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -68,7 +74,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="nrc">NRC</label>
-                                <input type="text" id="ncr" class="form-control" value="{{ old('nrc_number') }}" name="nrc_number">
+                                <input type="text" id="ncr" class="form-control" value="{{ old('nrc_number') }}"
+                                    name="nrc_number">
                                 {{-- @error('nrc_number')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -89,7 +96,8 @@
                                 <label for="" class="text-black-50">Choose Department</label>
                                 <select class="form-control" name="dep_id">
                                     @foreach ($departments as $dep)
-                                    <option value="{{ $dep->id }}" {{ $dep->id == old('dep_id') ? 'selected' : '' }}>{{ $dep->title }}</option>
+                                        <option value="{{ $dep->id }}"
+                                            {{ $dep->id == old('dep_id') ? 'selected' : '' }}>{{ $dep->title }}</option>
                                     @endforeach
                                 </select>
                                 {{-- @error('dep_id')
@@ -97,9 +105,19 @@
                                 @enderror --}}
                             </div>
 
+                            <div class="form-group mb-3">
+                                <label for="" class="text-black-50">Choose Role</label>
+                                <select class="form-control select-custom-multiple" name="roles[]" multiple>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="md-form mb-3">
                                 <label for="bd">Birthday</label>
-                                <input type="text" id="bd" class="form-control" value="{{ old('birthday') }}" name="birthday">
+                                <input type="text" id="bd" class="form-control" value="{{ old('birthday') }}"
+                                    name="birthday">
                                 {{-- @error('birthday')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -107,7 +125,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="addr">Address</label>
-                                <textarea class="form-control md-textarea" id="addr" name="address">{{ old('address') }}</textarea>
+                                <textarea class="form-control md-textarea" id="addr"
+                                    name="address">{{ old('address') }}</textarea>
                                 {{-- @error('address')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -115,7 +134,8 @@
 
                             <div class="md-form mb-3">
                                 <label for="doj">Date of Join</label>
-                                <input type="text" id="doj" class="form-control" value="{{ old('date_of_join') }}" name="date_of_join">
+                                <input type="text" id="doj" class="form-control" value="{{ old('date_of_join') }}"
+                                    name="date_of_join">
                                 {{-- @error('date_of_join')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}
@@ -138,11 +158,10 @@
 
 
 
-                                <div class="border rounded p-3 @error('profile_img')
-                                    broder border-danger
-                                @enderror">
+                                <div class="border rounded p-3 @error('profile_img') broder border-danger @enderror">
                                     <div class="d-flex align-items-center">
-                                        <div class="d-flex justify-content-center align-items-center bg-light border py-2 px-3 emp-profile" id="upload-ui">
+                                        <div class="d-flex justify-content-center align-items-center bg-light border py-2 px-3 emp-profile"
+                                            id="upload-ui">
                                             <i class="fas fa-upload fs-4"></i>
                                         </div>
 
@@ -167,9 +186,9 @@
 @endsection
 
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreEmployee', '#createForm'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreEmployee', '#createForm') !!}
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#bd").daterangepicker({
                 "singleDatePicker": true,
                 "autoApply": true,
@@ -190,12 +209,12 @@
             });
 
             let input = document.getElementById('profile_img');
-            document.getElementById('upload-ui').addEventListener("click",_=>input.click());
+            document.getElementById('upload-ui').addEventListener("click", _ => input.click());
 
-            $('#profile_img').on('change', function(){
+            $('#profile_img').on('change', function() {
                 var file_length = input.files.length;
                 $('.preview_img').html('');
-                for(var i = 0; i < file_length; i++){
+                for (var i = 0; i < file_length; i++) {
                     $('.preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}"/>`);
                 }
             });
