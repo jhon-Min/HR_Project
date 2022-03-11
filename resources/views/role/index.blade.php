@@ -21,6 +21,7 @@
                             <thead>
                                 <th class="no-sort"></th>
                                 <th class="text-center">Role Name</th>
+                                <th class="text-center">Permission</th>
                                 <th class="text-center no-sort">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
@@ -40,12 +41,13 @@
                 columns: [
                     { data: 'plus-icon', name: 'plus-icon', class: 'text-center' },
                     { data: 'name', name: 'name', class: 'text-center' },
+                    { data: 'permissions', name: 'permissions', class: 'text-center' },
                     { data: 'action', name: 'action', class: 'text-center' },
                     { data: 'updated_at', name: 'updated_at', class: 'text-center' },
                 ],
-                order: [
-                    [3, "desc"]
-                ],
+                // order: [
+                //     [4, "desc"]
+                // ],
             });
 
             $(document).on('click', '.del-btn', function(e, id){

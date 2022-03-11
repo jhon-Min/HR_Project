@@ -26,6 +26,24 @@
                                 @enderror --}}
                             </div>
 
+                            <div class="col-12">
+                                <p class="mb-2 text-semi small font-weight-bolder">Permissions</p>
+                                <div class="row">
+                                        @foreach ($permissions as $permission)
+                                        <div class="col-4 col-md-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->id }}" id="defaultCheck{{ $permission->id }}" @if (in_array($permission->id, $old_permissions))
+                                                    checked
+                                                @endif>
+                                                <label class="form-check-label" for="defaultCheck{{ $permission->id }}">
+                                                    {{ $permission->name }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                </div>
+                            </div>
+
                             <div class="mt-4">
                                 <button class="btn btn-theme m-0">Confirm</button>
                             </div>

@@ -7557,6 +7557,10 @@ body {
   color: #4cd195 !important;
 }
 
+.pagination .page-item.active .page-link {
+  z-index: 0;
+}
+
 mark {
   background: orange;
   color: black;
