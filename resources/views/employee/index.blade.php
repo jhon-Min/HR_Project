@@ -8,12 +8,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="mb-2">
-                    <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
-                        <i class=" fas fa-plus-circle"></i>
-                        Create Employee
-                    </a>
-                </div>
+                @can('create_employee')
+                    <div class="mb-2">
+                        <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
+                            <i class=" fas fa-plus-circle"></i>
+                            Create Employee
+                        </a>
+                    </div>
+                @endcan
 
                 <div class="card mb-8">
                     <div class="card-body">
@@ -26,8 +28,8 @@
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Department</th>
                                 <th class="text-center">Role</th>
-                                <th class="text-center no-sort">Action</th>
                                 <th class="text-center">Is Present</th>
+                                <th class="text-center no-sort">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
                         </table>
@@ -78,13 +80,13 @@
                         name: 'role_name',
                     },
                     {
-                        data: 'action',
-                        name: 'action',
+                        data: 'is_present',
+                        name: 'is_present',
                         class: 'text-center'
                     },
                     {
-                        data: 'is_present',
-                        name: 'is_present',
+                        data: 'action',
+                        name: 'action',
                         class: 'text-center'
                     },
                     {

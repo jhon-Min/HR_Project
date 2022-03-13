@@ -7,13 +7,15 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-           <div class="col-12 col-md-11">
-                <div class="mb-2">
-                    <a href="{{ route('role.create') }}" class="btn btn-theme px-3 font-weight-bold">
-                        <i class=" fas fa-plus-circle"></i>
-                        Create Role
-                    </a>
-                </div>
+            <div class="col-12 col-md-11">
+                @can('create_role')
+                    <div class="mb-2">
+                        <a href="{{ route('role.create') }}" class="btn btn-theme px-3 font-weight-bold">
+                            <i class=" fas fa-plus-circle"></i>
+                            Create Role
+                        </a>
+                    </div>
+                @endcan
 
                 <div class="card mb-8">
                     <div class="card-body">
@@ -28,29 +30,48 @@
                         </table>
                     </div>
                 </div>
-           </div>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('script')
-  <script>
-        $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
             var table = $('#dataTable').DataTable({
                 ajax: '{{ route('role.ssd') }}',
-                columns: [
-                    { data: 'plus-icon', name: 'plus-icon', class: 'text-center' },
-                    { data: 'name', name: 'name', class: 'text-center' },
-                    { data: 'permissions', name: 'permissions', class: 'text-center' },
-                    { data: 'action', name: 'action', class: 'text-center' },
-                    { data: 'updated_at', name: 'updated_at', class: 'text-center' },
+                columns: [{
+                        data: 'plus-icon',
+                        name: 'plus-icon',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'permissions',
+                        name: 'permissions',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at',
+                        class: 'text-center'
+                    },
                 ],
                 // order: [
                 //     [4, "desc"]
                 // ],
             });
 
-            $(document).on('click', '.del-btn', function(e, id){
+            $(document).on('click', '.del-btn', function(e, id) {
                 e.preventDefault();
 
                 var id = $(this).data("id");
@@ -68,13 +89,12 @@
                         $.ajax({
                             method: "DELETE",
                             url: `/role/${id}`,
-                        }).done(function(res){
+                        }).done(function(res) {
                             table.ajax.reload();
                         })
                     }
                 });
             })
         })
-  </script>
+    </script>
 @endsection
-

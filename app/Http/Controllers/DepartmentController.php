@@ -19,6 +19,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        if (!auth()->user()->can('view_department')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('department.index');
     }
 
@@ -33,9 +36,16 @@ class DepartmentController extends Controller
                 return null;
             })
             ->addColumn('action', function ($each) {
-                $edit = '<a href="' . route('department.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+                $edit = '';
+                $del = '';
 
-                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                if (auth()->user()->can('edit_department')) {
+                    $edit = '<a href="' . route('department.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+                }
+
+                if (auth()->user()->can('delete_department')) {
+                    $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                }
 
                 return '<div class="action-icon">' . $edit . $del . '</div>';
             })
@@ -50,6 +60,9 @@ class DepartmentController extends Controller
      */
     public function create()
     {
+        if (!auth()->user()->can('create_department')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('department.create');
     }
 
@@ -87,6 +100,9 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
+        if (!auth()->user()->can('edit_department')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('department.edit', compact('department'));
     }
 
@@ -99,6 +115,9 @@ class DepartmentController extends Controller
      */
     public function update(UpdateDepartment $request, Department $department)
     {
+        if (!auth()->user()->can('edit_department')) {
+            abort(403, 'Unauthorized action');
+        }
         $department->title = $request->title;
         $department->update();
         return redirect()->route('department.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => $department->title . ' is successfully updated']);
@@ -112,6 +131,9 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
+        if (!auth()->user()->can('delete_department')) {
+            abort(403, 'Unauthorized action');
+        }
         $department->delete();
     }
 }

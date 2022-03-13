@@ -14,11 +14,17 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_role')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('role.index');
     }
 
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $role = Role::query();
         return DataTables::of($role)
             ->addColumn('permissions', function ($each) {
@@ -35,9 +41,16 @@ class RoleController extends Controller
                 return null;
             })
             ->addColumn('action', function ($each) {
-                $edit = '<a href="' . route('role.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+                $edit = "";
+                $del = "";
 
-                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                if (auth()->user()->can('edit_role')) {
+                    $edit = '<a href="' . route('role.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded d-inline-block"><i class="fa-solid fa-pen-to-square"></i></a>';
+                }
+
+                if (auth()->user()->can('delete_role')) {
+                    $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                }
 
                 return "<div class='action-icon'>$edit $del</div>";
             })
@@ -47,12 +60,18 @@ class RoleController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('create_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $permissions = Permission::all();
         return view('role.create', compact('permissions'));
     }
 
     public function store(StoreRole $request)
     {
+        if (!auth()->user()->can('create_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $role = new Role();
         $role->name = $request->name;
         $role->save();
@@ -65,6 +84,9 @@ class RoleController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $role = Role::findOrFail($id);
         $old_permissions = $role->permissions->pluck('id')->toArray();
         $permissions = Permission::all();
@@ -74,6 +96,9 @@ class RoleController extends Controller
 
     public function update(UpdateRole $request, $id)
     {
+        if (!auth()->user()->can('edit_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $role = Role::findOrFail($id);
         $beforeName = $role->name;
         $old_permissions = $role->permissions->pluck('name')->toArray();
@@ -87,6 +112,9 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        if (!auth()->user()->can('delete_role')) {
+            abort(403, 'Unauthorized action');
+        }
         $role = Role::findOrFail($id);
         $role->delete();
     }

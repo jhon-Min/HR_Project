@@ -17,11 +17,17 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('employee.index');
     }
 
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employees = User::query();
         return DataTables::of($employees)->addColumn('dep', function ($each) {
             return $each->department ? $each->department->title : '-';
@@ -47,14 +53,26 @@ class EmployeeController extends Controller
             ->addColumn('role_name', function ($each) {
                 $output = "";
                 foreach ($each->roles as $role) {
-                    $output .= "<span class='badge badge-pill badge-dark m-1 p-2'>$role->name</span>";
+                    $output .= "<span class='badge badge-pill badge-primary m-1 p-2'>$role->name</span>";
                 }
                 return $output;
             })
             ->addColumn('action', function ($each) {
-                $edit = '<a href="' . route('employee.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
-                $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded mr-2"><i class="fa-solid fa-circle-info"></i></a>';
-                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                $edit = "";
+                $detail = "";
+                $del = "";
+
+                if (auth()->user()->can('edit_employee')) {
+                    $edit = '<a href="' . route('employee.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+                }
+
+                if (auth()->user()->can('view_employee')) {
+                    $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded mr-2"><i class="fa-solid fa-circle-info"></i></a>';
+                }
+
+                if (auth()->user()->can('delete_employee')) {
+                    $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                }
 
                 return '<div class="action-icon">' . $edit . $detail . $del . '</div>';
             })
@@ -64,6 +82,9 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $departments = Department::orderBy('title')->get();
         $roles = Role::orderBy('name')->get();
         return view('employee.create', compact('departments', 'roles'));
@@ -71,6 +92,9 @@ class EmployeeController extends Controller
 
     public function store(StoreEmployee $request)
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -102,6 +126,9 @@ class EmployeeController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         $departments = Department::orderBy('title')->get();
         $old_roles = $employee->roles->pluck('id')->toArray();
@@ -112,6 +139,9 @@ class EmployeeController extends Controller
 
     public function update(UpdateEmployee $request, $id)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         if ($request->hasFile('profile_img')) {
             Storage::disk('public')->delete('employee/' . $employee->profile_img);
@@ -142,12 +172,18 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         return view('employee.show', compact('employee'));
     }
 
     public function destroy($id)
     {
+        if (!auth()->user()->can('delete_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         Storage::disk('public')->delete('employee/' . $employee->profile_img);
         $employee->delete();

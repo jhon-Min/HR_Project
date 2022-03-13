@@ -13,11 +13,17 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('permission.index');
     }
 
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         $permission = Permission::query();
         return DataTables::of($permission)
             ->editColumn('updated_at', function ($each) {
@@ -39,11 +45,17 @@ class PermissionController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->can('create_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('permission.create');
     }
 
     public function store(StorePermission $request)
     {
+        if (!auth()->user()->can('create_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         $permission = new Permission();
         $permission->name = $request->name;
         $permission->save();
@@ -53,12 +65,18 @@ class PermissionController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         $permission = Permission::findOrFail($id);
         return view('permission.edit', compact('permission'));
     }
 
     public function update(UpdatePermission $request, $id)
     {
+        if (!auth()->user()->can('edit_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         $permission = Permission::findOrFail($id);
         $permission->name = $request->name;
         $permission->update();
@@ -68,6 +86,9 @@ class PermissionController extends Controller
 
     public function destroy($id)
     {
+        if (!auth()->user()->can('delete_permission')) {
+            abort(403, 'Unauthorized action');
+        }
         $permission = Permission::findOrFail($id);
         $permission->delete();
     }
