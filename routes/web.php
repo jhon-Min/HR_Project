@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('permission', 'PermissionController');
     Route::get('permission/datatable/ssd', 'PermissionController@ssd')->name('permission.ssd');
 
+    Route::resource('company-setting', 'CompanySettingController')->only(['edit', 'update', 'show']);
+
     // User Profile Controller
     Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
 });

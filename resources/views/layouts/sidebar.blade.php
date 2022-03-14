@@ -67,6 +67,11 @@
                         </x-menu-item>
                     @endcan
 
+                    @can('view_company_setting')
+                        <x-menu-item icon="fa-solid fa-gears" link="{{ route('company-setting.show', 1) }}">
+                            Company Setting
+                        </x-menu-item>
+                    @endcan
 
                     <li class="sidebar-dropdown">
                         <a href="#">

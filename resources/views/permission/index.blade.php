@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-11">
-                @can('create_premission')
+                @can('create_permission')
                     <div class="mb-2">
                         <a href="{{ route('permission.create') }}" class="btn btn-theme px-3 font-weight-bold">
                             <i class=" fas fa-plus-circle"></i>
