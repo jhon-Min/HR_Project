@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,9 +16,13 @@
     {{-- Date Range Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
+    {{-- Seletct 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('head')
 </head>
+
 <body class="bg-light">
 
     <div class="header-menu shadow py-3 bg-white">
@@ -83,7 +88,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
 
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
+    </script>
 
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
@@ -100,7 +106,10 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <!-- Laravel Javascript Validation -->
-    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+
+    {{-- Select 2 JS --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -108,6 +117,9 @@
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/dtable.js') }}"></script>
     @yield('script')
+    <script>
+        $('.select-custom-multiple').select2();
+    </script>
 
     @auth
         @include('layouts.toast')
@@ -115,4 +127,5 @@
         @include('layouts.create-alert')
     @endauth
 </body>
+
 </html>

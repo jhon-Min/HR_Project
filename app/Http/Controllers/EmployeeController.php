@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Department;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreEmployee;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateEmployee;
@@ -16,11 +17,17 @@ class EmployeeController extends Controller
 {
     public function index()
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         return view('employee.index');
     }
 
     public function ssd(Request $request)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employees = User::query();
         return DataTables::of($employees)->addColumn('dep', function ($each) {
             return $each->department ? $each->department->title : '-';
@@ -43,25 +50,51 @@ class EmployeeController extends Controller
             ->addColumn('plus-icon', function ($each) {
                 return null;
             })
+            ->addColumn('role_name', function ($each) {
+                $output = "";
+                foreach ($each->roles as $role) {
+                    $output .= "<span class='badge badge-pill badge-primary m-1 p-2'>$role->name</span>";
+                }
+                return $output;
+            })
             ->addColumn('action', function ($each) {
-                $edit = '<a href="' . route('employee.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
-                $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded mr-2"><i class="fa-solid fa-circle-info"></i></a>';
-                $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                $edit = "";
+                $detail = "";
+                $del = "";
+
+                if (auth()->user()->can('edit_employee')) {
+                    $edit = '<a href="' . route('employee.edit', $each->id) . '" class="btn btn-sm btn-info p-2 rounded mr-2"><i class="fa-solid fa-pen-to-square"></i></a>';
+                }
+
+                if (auth()->user()->can('view_employee')) {
+                    $detail = '<a href="' . route('employee.show', $each->id) . '" class="btn btn-sm btn-secondary p-2 rounded mr-2"><i class="fa-solid fa-circle-info"></i></a>';
+                }
+
+                if (auth()->user()->can('delete_employee')) {
+                    $del = '<a href="#" class="btn btn-sm btn-danger p-2 rounded del-btn" data-id="' . $each->id . '"><i class="fa-solid fa-trash-alt"></i></a>';
+                }
 
                 return '<div class="action-icon">' . $edit . $detail . $del . '</div>';
             })
-            ->rawColumns(['is_present', 'action'])
+            ->rawColumns(['is_present', 'action', 'role_name'])
             ->make(true);
     }
 
     public function create()
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $departments = Department::orderBy('title')->get();
-        return view('employee.create', compact('departments'));
+        $roles = Role::orderBy('name')->get();
+        return view('employee.create', compact('departments', 'roles'));
     }
 
     public function store(StoreEmployee $request)
     {
+        if (!auth()->user()->can('create_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = new User();
         $employee->employee_id = $request->employee_id;
         $employee->name = $request->name;
@@ -84,20 +117,31 @@ class EmployeeController extends Controller
             $employee->profile_img = $newName;
         }
 
+        $employee->syncRoles($request->roles);
         $employee->save();
+
 
         return redirect()->route('employee.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => 'Employee is successfully created']);
     }
 
     public function edit($id)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         $departments = Department::orderBy('title')->get();
-        return view('employee.edit', compact('employee', 'departments'));
+        $old_roles = $employee->roles->pluck('id')->toArray();
+        $roles = Role::orderBy('name')->get();
+
+        return view('employee.edit', compact('employee', 'departments', 'old_roles', 'roles'));
     }
 
     public function update(UpdateEmployee $request, $id)
     {
+        if (!auth()->user()->can('edit_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         if ($request->hasFile('profile_img')) {
             Storage::disk('public')->delete('employee/' . $employee->profile_img);
@@ -120,6 +164,7 @@ class EmployeeController extends Controller
         $employee->address = $request->address;
         $employee->date_of_join = $request->date_of_join;
         $employee->is_present = $request->is_present;
+        $employee->syncRoles($request->roles);
         $employee->update();
 
         return redirect()->route('employee.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => $employee->name . ' is successfully updated']);
@@ -127,12 +172,18 @@ class EmployeeController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->can('view_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         return view('employee.show', compact('employee'));
     }
 
     public function destroy($id)
     {
+        if (!auth()->user()->can('delete_employee')) {
+            abort(403, 'Unauthorized action');
+        }
         $employee = User::findOrFail($id);
         Storage::disk('public')->delete('employee/' . $employee->profile_img);
         $employee->delete();

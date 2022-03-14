@@ -1,21 +1,35 @@
 <div class="card shadow">
     <div class="card-body px-4">
         <div class="row">
-           <div class="col-12 col-md-7">
-              <div class="text-md-center">
-                <img src="{{ asset($employee->profile_img_path()) }}" alt="" class="emp-profile-circle shadow">
-                <div class="mt-3">
-                    <h4>{{ $employee->name }}</h4>
-                    <div class="text-semi h6">
-                        <span>{{ $employee->employee_id }}</span> | <span class="text-theme">{{ $employee->phone }}</span>
+            <div class="col-12 col-md-7">
+                <div class="text-md-center">
+                    <img src="{{ asset($employee->profile_img_path()) }}" alt="" class="emp-profile-circle shadow">
+                    <div class="mt-3">
+                        <h4>{{ $employee->name }}</h4>
+                        <div class="text-semi h6">
+                            <span>{{ $employee->employee_id }}</span> |
+                            <span class="text-theme">{{ $employee->phone }}</span>
+                        </div>
+                        <div class="mt-3">
+                            @foreach ($employee->roles as $role)
+                                <span class="badge badge-pill badge-primary p-2 mr-2">
+                                    #{{ $role->name }}
+                                </span>
+                            @endforeach
+                        </div>
                     </div>
-                     <span class="small badge-pill badge-dark px-2 py-1">{{ $employee->department->title }}</span>
                 </div>
-              </div>
-           </div>
+            </div>
 
             <div class="col-12 col-md-5 border-dash mt-5 mt-md-0">
                 <div>
+                    <div class="mb-3">
+                        <span class="font-weight-bold">
+                            Department :
+                        </span>
+                        <span class="h6 font-weight-normal ml-1 text-semi">{{ $employee->department->title }}</span>
+                    </div>
+
                     <div class="mb-3">
                         <span class="font-weight-bold">
                             Email :
@@ -56,9 +70,9 @@
                             Is Present :
                         </span>
                         @if ($employee->is_present == 1)
-                        <p class="font-weight-bold badge badge-pill badge-success p-2 px-3 mb-0">Yes</p>
+                            <p class="font-weight-bold badge badge-pill badge-success p-2 px-3 mb-0">Yes</p>
                         @else
-                        <p class="font-weight-bold badge badge-pill badge-danger p-2 px-3 mb-0">No</p>
+                            <p class="font-weight-bold badge badge-pill badge-danger p-2 px-3 mb-0">No</p>
                         @endif
                     </div>
                 </div>

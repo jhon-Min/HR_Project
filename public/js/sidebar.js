@@ -26,6 +26,11 @@ jQuery(function ($) {
         $(".page-wrapper").addClass("toggled");
     });
 
+    $("#logoutBtn").click(function (e) {
+        e.preventDefault();
+        $("#logout-form").submit();
+    });
+
     // $("#back").click(function (e) {
     //     e.preventDefault();
     //     window.history.go(-1);

@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('title')
-    Employee Lists
+    Role Lists
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12">
-                @can('create_employee')
+            <div class="col-12 col-md-11">
+                @can('create_role')
                     <div class="mb-2">
-                        <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
+                        <a href="{{ route('role.create') }}" class="btn btn-theme px-3 font-weight-bold">
                             <i class=" fas fa-plus-circle"></i>
-                            Create Employee
+                            Create Role
                         </a>
                     </div>
                 @endcan
@@ -22,13 +22,8 @@
                         <table class="table table-hover table-bordered w-100" id="dataTable">
                             <thead>
                                 <th class="no-sort"></th>
-                                <th class="text-center">Employee ID</th>
-                                <th class="text-center">Name</th>
-                                <th class="text-center">Phone</th>
-                                <th class="text-center">Email</th>
-                                <th class="text-center">Department</th>
-                                <th class="text-center">Role</th>
-                                <th class="text-center">Is Present</th>
+                                <th class="text-center">Role Name</th>
+                                <th class="text-center">Permission</th>
                                 <th class="text-center no-sort">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
@@ -44,15 +39,10 @@
     <script>
         $(document).ready(function() {
             var table = $('#dataTable').DataTable({
-                ajax: '{{ route('emp.ssd') }}',
+                ajax: '{{ route('role.ssd') }}',
                 columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
-                        class: 'text-center'
-                    },
-                    {
-                        data: 'employee_id',
-                        name: 'employee_id',
                         class: 'text-center'
                     },
                     {
@@ -61,27 +51,8 @@
                         class: 'text-center'
                     },
                     {
-                        data: 'phone',
-                        name: 'phone',
-                        class: 'text-center'
-                    },
-                    {
-                        data: 'email',
-                        name: 'email',
-                        class: 'text-center'
-                    },
-                    {
-                        data: 'dep',
-                        name: 'dep',
-                        class: 'text-center'
-                    },
-                    {
-                        data: 'role_name',
-                        name: 'role_name',
-                    },
-                    {
-                        data: 'is_present',
-                        name: 'is_present',
+                        data: 'permissions',
+                        name: 'permissions',
                         class: 'text-center'
                     },
                     {
@@ -95,9 +66,9 @@
                         class: 'text-center'
                     },
                 ],
-                order: [
-                    [9, "desc"]
-                ],
+                // order: [
+                //     [4, "desc"]
+                // ],
             });
 
             $(document).on('click', '.del-btn', function(e, id) {
@@ -117,7 +88,7 @@
                         Swal.fire("Deleted!", "Your file has been deleted.", "success");
                         $.ajax({
                             method: "DELETE",
-                            url: `/employee/${id}`,
+                            url: `/role/${id}`,
                         }).done(function(res) {
                             table.ajax.reload();
                         })

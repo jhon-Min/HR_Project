@@ -20,6 +20,17 @@ Route::middleware('auth')->group(function () {
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/datatable/ssd', 'EmployeeController@ssd')->name('emp.ssd');
 
+    Route::resource('department', 'DepartmentController');
+    Route::get('department/datatable/ssd', 'DepartmentController@ssd')->name('department.ssd');
+
+    Route::resource('role', 'RoleController');
+    Route::get('role/datatable/ssd', 'RoleController@ssd')->name('role.ssd');
+
+    Route::resource('permission', 'PermissionController');
+    Route::get('permission/datatable/ssd', 'PermissionController@ssd')->name('permission.ssd');
+
+    Route::resource('company-setting', 'CompanySettingController')->only(['edit', 'update', 'show']);
+
     // User Profile Controller
     Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
 });
