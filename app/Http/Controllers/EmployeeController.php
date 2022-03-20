@@ -101,6 +101,7 @@ class EmployeeController extends Controller
         $employee->phone = $request->phone;
         $employee->email = $request->email;
         $employee->password = Hash::make($request->password);
+        $employee->pin_code  = $request->pin_code;
         $employee->nrc_number = $request->nrc_number;
         $employee->gender = $request->gender;
         $employee->dep_id = $request->dep_id;
@@ -157,6 +158,7 @@ class EmployeeController extends Controller
         $employee->phone = $request->phone;
         $employee->email = $request->email;
         $employee->password = $request->password ? Hash::make($request->password) : $employee->password;
+        $employee->pin_code  = $request->pin_code;
         $employee->nrc_number = $request->nrc_number;
         $employee->gender = $request->gender;
         $employee->dep_id = $request->dep_id;

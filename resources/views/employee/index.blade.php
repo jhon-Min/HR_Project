@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12">
+            <div class="col-12 col-md-10">
                 @can('create_employee')
                     <div class="mb-2">
                         <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
