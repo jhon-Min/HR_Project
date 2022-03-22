@@ -28,6 +28,20 @@
     </script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    <script>
+        // Csrf token
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (token) {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": token.content,
+                },
+            });
+        } else {
+            console.log("csrf token not found");
+        }
+    </script>
     @yield('script')
 </body>
 

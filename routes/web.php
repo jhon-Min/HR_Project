@@ -27,7 +27,8 @@ Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
     ->name('webauthn.login');
 
 
-Route::get('check-in-out', 'CheckInOutController@checkInOut')->name('check-in');
+Route::get('check-in-out', 'CheckInOutController@checkInOut')->name('check-in-out');
+Route::post('check-in', 'CheckInOutController@checkIn')->name('check-in');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', 'PageController@home')->name('home');
