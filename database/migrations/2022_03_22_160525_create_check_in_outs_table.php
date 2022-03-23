@@ -16,6 +16,7 @@ class CreateCheckInOutsTable extends Migration
         Schema::create('check_in_outs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->date('date')->nullable();
             $table->timestamp('check_in')->nullable();
             $table->timestamp('check_out')->nullable();
             $table->timestamps();

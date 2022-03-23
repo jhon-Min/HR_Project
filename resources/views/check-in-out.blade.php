@@ -42,12 +42,12 @@
     <script>
         $('#pincode-input1').pincodeInput({
             inputs: 6,
-            hidedigits: false,
+            hidedigits: true,
             complete: function(value, e, errorElement) {
                 console.log("code entered: " + value);
 
                 $.ajax({
-                    url: "{{ route('check-in') }}",
+                    url: "{{ route('check-process') }}",
                     method: "POST",
                     data: {
                         "pin_code": value
@@ -57,13 +57,30 @@
                             Swal.fire({
                                 icon: res.status,
                                 title: res.title,
+                                text: res.message,
                             })
                         } else {
-                            Swal.fire({
+                            const Toast = Swal.mixin({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                                    toast.addEventListener('mouseleave', Swal
+                                        .resumeTimer)
+                                }
+                            })
+
+                            Toast.fire({
                                 icon: res.status,
                                 title: res.title,
                             })
                         }
+
+                        $('.pincode-input-container .pincode-input-text').val("");
+                        $('.pincode-input-text').first().select().focus();
                     }
                 })
 

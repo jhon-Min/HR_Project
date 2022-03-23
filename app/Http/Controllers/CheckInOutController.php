@@ -13,7 +13,7 @@ class CheckInOutController extends Controller
         return view('check-in-out');
     }
 
-    public function checkIn(Request $request)
+    public function checkProcess(Request $request)
     {
         $user = User::where("pin_code", $request->pin_code)->first();
 
@@ -24,21 +24,36 @@ class CheckInOutController extends Controller
             ];
         }
 
-        if (CheckInOut::whereNotNull('check_in')->exists()) {
+        $check = CheckInOut::firstOrCreate([
+            'user_id' => $user->id,
+            'date' => now()->format('Y-m-d')
+        ]);
+
+        if (!is_null($check->check_in) && !is_null($check->check_out)) {
             return [
-                "status" => "error",
-                "title" => "Already Check In"
+                "status" => "info",
+                "title" => "Already check-in and check-out today."
             ];
         }
 
-        $check = new CheckInOut();
-        $check->user_id = $user->id;
-        $check->check_in = now();
-        $check->save();
+        if (is_null($check->check_in)) {
+            $check->check_in = now();
+            $title =  "Successfully Check In";
+            $message = $user->name . ' သည် ' . now() . ' တွင် check-in ကိုပြုလုပ်ပါသည်။';
+        } else {
+            if (is_null($check->check_out)) {
+                $check->check_out = now();
+                $title = "Successfully Check Out";
+                $message = $user->name . ' သည် ' . now() . ' တွင် check-out ကိုပြုလုပ်ပါသည်။';
+            }
+        }
+
+        $check->update();
 
         return [
             "status" => "success",
-            "title" => "Successfully Check In"
+            "title" => $title,
+            "message" => $message
         ];
     }
 }
