@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,21 +12,37 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('head')
 </head>
-<body>
+
+<body class="bg-light">
     <div id="app">
         @yield('content')
     </div>
 
     <!-- JQuery -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
     <!-- Bootstrap tooltips -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
     <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js">
+    </script>
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        // Csrf token
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (token) {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": token.content,
+                },
+            });
+        } else {
+            console.log("csrf token not found");
+        }
+    </script>
     @yield('script')
 </body>
+
 </html>

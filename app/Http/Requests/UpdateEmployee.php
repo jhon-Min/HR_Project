@@ -29,6 +29,7 @@ class UpdateEmployee extends FormRequest
             'name' => 'required',
             'phone' => 'required|min:9|max:11|unique:users,phone,' . $id,
             'email' => 'required|unique:users,email,' . $id,
+            'pin_code' => 'required|min:6|max:6|unique:users,pin_code,' . $id,
             'nrc_number' => 'required|min:3',
             'gender' => 'required',
             'dep_id' => 'required',

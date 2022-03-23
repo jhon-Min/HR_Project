@@ -73,6 +73,15 @@
                             </div>
 
                             <div class="md-form mb-3">
+                                <label for="pin">Pin Code</label>
+                                <input type="number" id="pin" class="form-control" value="{{ old('pin_code') }}"
+                                    name="pin_code">
+                                {{-- @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror --}}
+                            </div>
+
+                            <div class="md-form mb-3">
                                 <label for="nrc">NRC</label>
                                 <input type="text" id="ncr" class="form-control" value="{{ old('nrc_number') }}"
                                     name="nrc_number">
@@ -97,7 +106,8 @@
                                 <select class="form-control" name="dep_id">
                                     @foreach ($departments as $dep)
                                         <option value="{{ $dep->id }}"
-                                            {{ $dep->id == old('dep_id') ? 'selected' : '' }}>{{ $dep->title }}</option>
+                                            {{ $dep->id == old('dep_id') ? 'selected' : '' }}>{{ $dep->title }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 {{-- @error('dep_id')
@@ -125,8 +135,7 @@
 
                             <div class="md-form mb-3">
                                 <label for="addr">Address</label>
-                                <textarea class="form-control md-textarea" id="addr"
-                                    name="address">{{ old('address') }}</textarea>
+                                <textarea class="form-control md-textarea" id="addr" name="address">{{ old('address') }}</textarea>
                                 {{-- @error('address')
                                 <span class="text-danger">{{ $message }}</span>
                                 @enderror --}}

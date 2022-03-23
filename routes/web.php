@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\WebAuthnRegisterController;
+use App\Http\Controllers\Auth\WebAuthnLoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
+Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
+    ->name('webauthn.register.options');
+Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])
+    ->name('webauthn.register');
+
+Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'])
+    ->name('webauthn.login.options');
+Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
+    ->name('webauthn.login');
+
+
+Route::get('check-in-out', 'CheckInOutController@checkInOut')->name('check-in-out');
+Route::post('check-process', 'CheckInOutController@checkProcess')->name('check-process');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', 'PageController@home')->name('home');

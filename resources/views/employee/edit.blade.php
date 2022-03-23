@@ -76,6 +76,15 @@
                             </div>
 
                             <div class="md-form mb-3">
+                                <label for="pin">Pin Code</label>
+                                <input type="number" id="pin" class="form-control"
+                                    value="{{ old('pin_code', $employee->pin_code) }}" name="pin_code">
+                                {{-- @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror --}}
+                            </div>
+
+                            <div class="md-form mb-3">
                                 <label for="nrc">NRC</label>
                                 <input type="text" id="ncr" class="form-control"
                                     value="{{ old('nrc_number', $employee->nrc_number) }}" name="nrc_number">
