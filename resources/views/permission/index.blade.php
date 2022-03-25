@@ -24,7 +24,7 @@
                                 <th class="no-sort"></th>
                                 <th class="text-center">Permission Name</th>
                                 <th class="text-center no-sort">Action</th>
-                                <th class="text-center hidden no-sort">Updated_at</th>
+                                <th class="text-center hidden">Updated_at</th>
                             </thead>
                         </table>
                     </div>
