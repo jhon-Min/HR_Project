@@ -29,6 +29,7 @@
                         @endforeach
                         <form action="{{ route('attendance.update', $attendance->id) }}" id="editForm" method="POST">
                             @csrf
+                            @method('put')
                             <div class="form-group mb-3">
                                 <label for="" class="text-black-50">Choose Employee</label>
                                 <select class="form-control" name="user_id">
@@ -50,13 +51,13 @@
                             <div class="mb-4 md-form">
                                 <label for="check-in">Check In</label>
                                 <input type="text" id="check-in" class="form-control time-picker" name="check_in"
-                                    value="{{ old('check_in', $attendance->check_in) }}">
+                                    value="{{ old('check_in', Carbon\Carbon::parse($attendance->check_in)->format('H:i:s')) }}">
                             </div>
 
                             <div class="mb-4 md-form">
                                 <label for="check-out">Check Out</label>
                                 <input type="text" id="check-out" class="form-control time-picker" name="check_out"
-                                    value="{{ old('check_out', $attendance->check_out) }}">
+                                    value="{{ old('check_out', Carbon\Carbon::parse($attendance->check_out)->format('H:i:s')) }}">
                             </div>
 
                             <div class="mt-4">

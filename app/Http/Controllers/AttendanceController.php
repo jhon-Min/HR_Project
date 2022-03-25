@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\CheckInOut;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAttendance;
+use App\Http\Requests\UpdateAttendance;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -78,7 +79,24 @@ class AttendanceController extends Controller
         if (!auth()->user()->can('edit_attendance')) {
             abort(403, 'Unauthorized action');
         }
-        return view('attendance.edit', compact('attendance'));
+        $users = User::orderBy('name')->get();
+        return view('attendance.edit', compact('attendance', 'users'));
+    }
+
+    public function update(UpdateAttendance $request, CheckInOut $attendance)
+    {
+        if (CheckInOut::where('user_id', $request->user_id)->where('id', '!=', $attendance->id)->where('date', $request->date)->exists()) {
+            // return back()->with('toast', ['icon' => 'error', 'title' => 'Already Defined.']);
+            return back()->withErrors(['fail' => 'Already defined.'])->withInput();
+        }
+
+        $attendance->user_id = $request->user_id;
+        $attendance->date = $request->date;
+        $attendance->check_in = $request->date . ' ' . $request->check_in;
+        $attendance->check_out = $request->date . ' ' . $request->check_out;
+        $attendance->update();
+
+        return redirect()->route('attendance.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => 'Attendance is successfully updated']);
     }
 
 

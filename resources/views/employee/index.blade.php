@@ -9,13 +9,17 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-10">
                 @can('create_employee')
-                    <div class="mb-2">
+                    <div class="">
                         <a href="{{ route('employee.create') }}" class="btn btn-theme px-3 font-weight-bold">
                             <i class=" fas fa-plus-circle"></i>
                             Create Employee
                         </a>
                     </div>
                 @endcan
+
+                <x-bread-crumb>
+                    <li class="breadcrumb-item active" aria-current="page">Employee Lists</li>
+                </x-bread-crumb>
 
                 <div class="card mb-8">
                     <div class="card-body">
