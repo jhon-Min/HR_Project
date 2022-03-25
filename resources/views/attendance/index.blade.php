@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('title')
-    Permission Lists
+    Attendance Table
 @endsection
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-11">
-                @can('create_permission')
+                @can('create_attendance')
                     <div class="mb-2">
-                        <a href="{{ route('permission.create') }}" class="btn btn-theme px-3 font-weight-bold">
+                        <a href="{{ route('attendance.create') }}" class="btn btn-theme px-3 font-weight-bold">
                             <i class=" fas fa-plus-circle"></i>
-                            Create Permission
+                            Create Attendance
                         </a>
                     </div>
                 @endcan
@@ -22,9 +22,12 @@
                         <table class="table table-hover table-bordered w-100" id="dataTable">
                             <thead>
                                 <th class="no-sort"></th>
-                                <th class="text-center">Permission Name</th>
+                                <th class="text-center">Employee</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">Check-in Time</th>
+                                <th class="text-center">Check-out Time</th>
                                 <th class="text-center no-sort">Action</th>
-                                <th class="text-center hidden">Updated_at</th>
+                                <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
                         </table>
                     </div>
@@ -38,15 +41,30 @@
     <script>
         $(document).ready(function() {
             var table = $('#dataTable').DataTable({
-                ajax: '{{ route('permission.ssd') }}',
+                ajax: '{{ route('attendance.ssd') }}',
                 columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
                         class: 'text-center'
                     },
                     {
-                        data: 'name',
-                        name: 'name',
+                        data: 'employee',
+                        name: 'employee',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'date',
+                        name: 'date',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'check_in',
+                        name: 'check_in',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'check_out',
+                        name: 'check_out',
                         class: 'text-center'
                     },
                     {
@@ -61,7 +79,7 @@
                     },
                 ],
                 order: [
-                    [3, "desc"]
+                    [6, "desc"]
                 ],
             });
 
@@ -82,7 +100,7 @@
                         Swal.fire("Deleted!", "Your file has been deleted.", "success");
                         $.ajax({
                             method: "DELETE",
-                            url: `/permission/${id}`,
+                            url: `/attendance/${id}`,
                         }).done(function(res) {
                             table.ajax.reload();
                         })

@@ -35,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('employee', 'EmployeeController');
     Route::get('employee/datatable/ssd', 'EmployeeController@ssd')->name('emp.ssd');
 
+    Route::resource('attendance', 'AttendanceController');
+    Route::get('attendance/datatable/ssd', 'AttendanceController@ssd')->name('attendance.ssd');
+
     Route::resource('department', 'DepartmentController');
     Route::get('department/datatable/ssd', 'DepartmentController@ssd')->name('department.ssd');
 

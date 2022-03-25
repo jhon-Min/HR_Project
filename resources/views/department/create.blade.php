@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-body px-4 ">
                         <form action="{{ route('department.store') }}" id="createForm" method="POST">
-                             @csrf
+                            @csrf
                             <div class="md-form mb-3">
                                 <label for="emp">Department Name</label>
                                 <input type="text" id="emp" class="form-control" value="{{ old('title') }}" name="title">
@@ -37,5 +37,5 @@
 @endsection
 
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreDepartment', '#createForm'); !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreDepartment', '#createForm') !!}
 @endsection

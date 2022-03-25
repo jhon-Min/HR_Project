@@ -53,6 +53,9 @@
                         <x-menu-item icon="fa fa-users" link="{{ route('employee.index') }}">Employees</x-menu-item>
                     @endcan
 
+                    <x-menu-item icon="fa-solid fa-calendar-days" link="{{ route('attendance.index') }}">Attendance
+                    </x-menu-item>
+
                     @can('view_department')
                         <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department
                         </x-menu-item>
@@ -94,25 +97,6 @@
                                 </li>
                             </ul>
                         </div>
-                    </li>
-
-                    <li class="header-menu">
-                        <span>Extra</span>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-book"></i>
-                            <span>Documentation</span>
-                            <span class="badge badge-pill badge-primary">Beta</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-calendar"></i>
-                            <span>Calendar</span>
-                        </a>
                     </li>
 
                 </ul>
