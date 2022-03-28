@@ -55,6 +55,43 @@
                 if (result) {
                     $('#scanBackdrop').modal('hide')
                     qrScanner.stop();
+                    $.ajax({
+                        url: "{{ route('attendance-scan.store') }}",
+                        method: "POST",
+                        data: {
+                            "hash_value": result
+                        },
+                        success: function(res) {
+                            if (res.status == 'success') {
+                                Swal.fire({
+                                    icon: res.status,
+                                    title: res.title,
+                                    text: res.message,
+                                })
+                            } else {
+                                const Toast = Swal.mixin({
+                                    toast: true,
+                                    position: 'top',
+                                    showConfirmButton: false,
+                                    timer: 2500,
+                                    timerProgressBar: true,
+                                    didOpen: (toast) => {
+                                        toast.addEventListener('mouseenter',
+                                            Swal.stopTimer)
+                                        toast.addEventListener('mouseleave',
+                                            Swal
+                                            .resumeTimer)
+                                    }
+                                })
+
+                                Toast.fire({
+                                    icon: res.status,
+                                    title: res.title,
+                                })
+                            }
+                        }
+                    })
+
                 }
             });
 

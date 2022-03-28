@@ -13,7 +13,8 @@ class CheckInOutController extends Controller
     public function checkInOut()
     {
         $company = CompanySetting::findOrFail(1);
-        $hash_value = Hash::make($company->name);
+        $hash_value = Hash::make(date('Y-m-d'));
+        // $hash_value = Hash::make($company);
         return view('check-in-out', compact('hash_value'));
     }
 
