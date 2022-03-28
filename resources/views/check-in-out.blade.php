@@ -7,7 +7,7 @@
 @section('head')
     <style>
         .qr-img {
-            width: 170px;
+            width: 190px;
         }
 
     </style>
@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="text-center mb-5">
                             <img src="data:image/png;base64, {!! base64_encode(
-    QrCode::format('png')->size(100)->generate('Make me into an QrCode!'),
+    QrCode::format('png')->size(100)->generate($hash_value),
 ) !!} " class="qr-img">
                             <p class="text-muted mt-3">Please scan QR to check-in and check-out</p>
                             <hr>
