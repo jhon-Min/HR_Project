@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\User;
 use Carbon\Carbon;
 use App\CheckInOut;
+use App\CompanySetting;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAttendance;
 use App\Http\Requests\UpdateAttendance;
+use Carbon\CarbonPeriod;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -21,11 +23,16 @@ class AttendanceController extends Controller
     {
         $attendances = CheckInOut::with('employee');
         return DataTables::of($attendances)
+            ->filterColumn('employee', function ($query, $keyword) {
+                $query->whereHas('employee', function ($q) use ($keyword) {
+                    $q->where('employee_id', 'like', "%$keyword%");
+                });
+            })
             ->editColumn('updated_at', function ($each) {
                 return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
             })
             ->addColumn('employee', function ($each) {
-                return $each->employee ? $each->employee->name : '-';
+                return $each->employee ? $each->employee->employee_id : '-';
             })
             ->addColumn('plus-icon', function ($each) {
                 return null;
@@ -74,6 +81,10 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => 'New attendance is successfully created']);
     }
 
+    public function show(CheckInOut $attendance)
+    {
+    }
+
     public function edit(CheckInOut $attendance)
     {
         if (!auth()->user()->can('edit_attendance')) {
@@ -106,5 +117,19 @@ class AttendanceController extends Controller
             abort(403, 'Unauthorized action');
         }
         $attendance->delete();
+    }
+
+    public function overview(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+
+        $periods = new CarbonPeriod('2022-03-01', '2022-03-31');
+        $employees = User::all();
+        $company = CompanySetting::findOrFail(1);
+        $attendances = CheckInOut::whereMonth('date', '03')->whereYear('date', '2022')->get();
+        // return $periods;
+        return view('attendance.overview', compact('periods', 'employees', 'company', 'attendances'));
     }
 }
