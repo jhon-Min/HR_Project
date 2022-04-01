@@ -21,7 +21,7 @@ class AttendanceSeeder extends Seeder
         foreach ($users as $user) {
             $periods = new CarbonPeriod('2020-01-01', '2022-3-31');
             foreach ($periods as $period) {
-                if ($period->format('D') != 'Sat' && $period->format('D') != 'Sun') {
+                if ($period->format('D') != 'Sat' and $period->format('D') != 'Sun') {
                     $attendance = new CheckInOut();
                     $attendance->user_id = $user->id;
                     $attendance->date = $period->format('Y-m-d');

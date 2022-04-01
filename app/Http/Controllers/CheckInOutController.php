@@ -20,6 +20,12 @@ class CheckInOutController extends Controller
 
     public function checkProcess(Request $request)
     {
+        if (now()->format('D') == 'Sat' or now()->format('D') == 'Sun') {
+            return [
+                "status" => "error",
+                "title" => "Today is company off-day."
+            ];
+        }
         $user = User::where("pin_code", $request->pin_code)->first();
 
         if (!$user) {
