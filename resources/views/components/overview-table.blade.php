@@ -4,7 +4,9 @@
             <th>Employee</th>
             @foreach ($periods as $period)
                 <th @if ($period->format('D') == 'Sat' or $period->format('D') == 'Sun') class="text-danger bg-light font-weight-bold" @endif>
-                    {{ $period->format('d') }}</th>
+                    <span>{{ $period->format('d') }}</span>
+                    <span>{{ $period->format('D') }}</span>
+                </th>
             @endforeach
         </thead>
 

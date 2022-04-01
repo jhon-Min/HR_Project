@@ -64,6 +64,12 @@
                         </x-menu-item>
                     @endcan
 
+                    @can('view_salary')
+                        <x-menu-item icon="fa-solid fa-circle-dollar-to-slot" link="{{ route('salary.index') }}">
+                            Salary Management
+                        </x-menu-item>
+                    @endcan
+
                     @can('view_department')
                         <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department
                         </x-menu-item>
