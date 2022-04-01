@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\User;
 use Carbon\Carbon;
 use App\CheckInOut;
+use App\CompanySetting;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreAttendance;
 use App\Http\Requests\UpdateAttendance;
+use Carbon\CarbonPeriod;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
@@ -21,6 +23,11 @@ class AttendanceController extends Controller
     {
         $attendances = CheckInOut::with('employee');
         return DataTables::of($attendances)
+            ->filterColumn('employee', function ($query, $keyword) {
+                $query->whereHas('employee', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%$keyword%");
+                });
+            })
             ->editColumn('updated_at', function ($each) {
                 return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
             })
@@ -74,6 +81,10 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => 'New attendance is successfully created']);
     }
 
+    public function show(CheckInOut $attendance)
+    {
+    }
+
     public function edit(CheckInOut $attendance)
     {
         if (!auth()->user()->can('edit_attendance')) {
@@ -106,5 +117,32 @@ class AttendanceController extends Controller
             abort(403, 'Unauthorized action');
         }
         $attendance->delete();
+    }
+
+    public function overview(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+
+        return view('attendance.overview');
+    }
+
+    public function overviewTable(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+
+        $month = $request->month;
+        $year = $request->year;
+        $start = $year . '-' . $month . '-01';
+        $end = Carbon::parse($start)->endOfMonth()->format('Y-m-d');
+
+        $periods = new CarbonPeriod($start, $end);
+        $employees = User::orderBy('employee_id')->where('employee_id', 'like', '%' . $request->employee_name . '%')->get();
+        $company = CompanySetting::findOrFail(1);
+        $attendances = CheckInOut::whereMonth('date', $month)->whereYear('date', $year)->get();
+        return view('components.overview-table', compact('periods', 'employees', 'company', 'attendances'));
     }
 }

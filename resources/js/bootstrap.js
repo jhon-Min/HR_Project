@@ -11,6 +11,7 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 try {
     // window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require("jquery");
+    window.QrScanner = require("qr-scanner/qr-scanner.umd.min.js"); // if installed via package
     window.Swal = Swal;
     // require('bootstrap');
 } catch (e) {}

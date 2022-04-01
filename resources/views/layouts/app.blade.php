@@ -50,29 +50,19 @@
             <div class="row justify-content-center">
                 <div class="col col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="{{ route('home') }}" class="text-dark">
-                            <i class="fa-solid fa-house"></i>
-                            <br>
-                            <span>Home</span>
-                        </a>
+                        <x-bottom-item link="{{ route('home') }}" icon="fa-solid fa-house">Home</x-bottom-item>
+
+                        <x-bottom-item link="{{ route('attendance-scan') }}" icon="fa-solid fa-clipboard-list">Your
+                            Attendance</x-bottom-item>
 
                         <a href="http://" class="text-dark">
-                            <i class="fa-solid fa-house"></i>
+                            <i class="fa-solid fa-briefcase"></i>
                             <br>
-                            <span>Home</span>
+                            <span>Your Projects</span>
                         </a>
 
-                        <a href="http://" class="text-dark">
-                            <i class="fa-solid fa-house"></i>
-                            <br>
-                            <span>Home</span>
-                        </a>
-
-                        <a href="{{ route('user-profile.profile') }}" class="text-dark">
-                            <i class="fa-solid fa-user"></i>
-                            <br>
-                            <span>Profile</span>
-                        </a>
+                        <x-bottom-item link="{{ route('user-profile.profile') }}" icon="fa-solid fa-user">Profile
+                        </x-bottom-item>
                     </div>
                 </div>
             </div>

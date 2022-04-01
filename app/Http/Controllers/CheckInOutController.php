@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\CheckInOut;
 use App\User;
+use App\CheckInOut;
+use App\CompanySetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CheckInOutController extends Controller
 {
     public function checkInOut()
     {
-        return view('check-in-out');
+        $company = CompanySetting::findOrFail(1);
+        $hash_value = Hash::make(date('Y-m-d'));
+        // $hash_value = Hash::make($company);
+        return view('check-in-out', compact('hash_value'));
     }
 
     public function checkProcess(Request $request)

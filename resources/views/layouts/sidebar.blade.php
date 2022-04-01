@@ -53,8 +53,16 @@
                         <x-menu-item icon="fa fa-users" link="{{ route('employee.index') }}">Employees</x-menu-item>
                     @endcan
 
-                    <x-menu-item icon="fa-solid fa-calendar-days" link="{{ route('attendance.index') }}">Attendance
-                    </x-menu-item>
+                    @can('view_attendance')
+                        <x-menu-item icon="fa-solid fa-calendar-days" link="{{ route('attendance.index') }}">Attendance
+                        </x-menu-item>
+                    @endcan
+
+                    @can('view_attendance_overview')
+                        <x-menu-item icon="fa-solid fa-chalkboard-user" link="{{ route('attendance.overview') }}">
+                            Attendance Overview
+                        </x-menu-item>
+                    @endcan
 
                     @can('view_department')
                         <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department
