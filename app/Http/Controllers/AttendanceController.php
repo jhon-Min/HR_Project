@@ -25,14 +25,14 @@ class AttendanceController extends Controller
         return DataTables::of($attendances)
             ->filterColumn('employee', function ($query, $keyword) {
                 $query->whereHas('employee', function ($q) use ($keyword) {
-                    $q->where('employee_id', 'like', "%$keyword%");
+                    $q->where('name', 'like', "%$keyword%");
                 });
             })
             ->editColumn('updated_at', function ($each) {
                 return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
             })
             ->addColumn('employee', function ($each) {
-                return $each->employee ? $each->employee->employee_id : '-';
+                return $each->employee ? $each->employee->name : '-';
             })
             ->addColumn('plus-icon', function ($each) {
                 return null;
