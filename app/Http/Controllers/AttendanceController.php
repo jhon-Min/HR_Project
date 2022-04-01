@@ -125,11 +125,24 @@ class AttendanceController extends Controller
             abort(403, 'Unauthorized action');
         }
 
-        $periods = new CarbonPeriod('2022-03-01', '2022-03-31');
-        $employees = User::all();
+        return view('attendance.overview');
+    }
+
+    public function overviewTable(Request $request)
+    {
+        if (!auth()->user()->can('view_attendance_overview')) {
+            abort(403, 'Unauthorized action');
+        }
+
+        $month = $request->month;
+        $year = $request->year;
+        $start = $year . '-' . $month . '-01';
+        $end = Carbon::parse($start)->endOfMonth()->format('Y-m-d');
+
+        $periods = new CarbonPeriod($start, $end);
+        $employees = User::orderBy('employee_id')->where('employee_id', 'like', '%' . $request->employee_name . '%')->get();
         $company = CompanySetting::findOrFail(1);
-        $attendances = CheckInOut::whereMonth('date', '03')->whereYear('date', '2022')->get();
-        // return $periods;
-        return view('attendance.overview', compact('periods', 'employees', 'company', 'attendances'));
+        $attendances = CheckInOut::whereMonth('date', $month)->whereYear('date', $year)->get();
+        return view('components.overview-table', compact('periods', 'employees', 'company', 'attendances'));
     }
 }
