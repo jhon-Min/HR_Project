@@ -54,8 +54,8 @@
                                 <label for="">Year</label>
                                 <select name="year" class="form-control select-year">
                                     <option value="">-- Please Choose (Year) --</option>
-                                    @for ($i = 0; $i < 3; $i++)
-                                        <option value="{{ now()->addYears(5)->subYears($i)->format('Y') }}">
+                                    @for ($i = 0; $i <= 3; $i++)
+                                        <option value="{{ now()->addYears(3)->subYears($i)->format('Y') }}">
                                             {{ now()->addYears(3)->subYears($i)->format('Y') }}
                                         </option>
                                     @endfor
@@ -66,9 +66,6 @@
                                 <label for="emp">Amount (MMK)</label>
                                 <input type="number" id="emp" class="form-control" value="{{ old('amount') }}"
                                     name="amount">
-                                {{-- @error('employee_id')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror --}}
                             </div>
 
                             <div class="">

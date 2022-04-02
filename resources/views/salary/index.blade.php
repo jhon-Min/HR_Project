@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <table class="table table-hover table-bordered w-100" id="dataTable">
                             <thead>
-                                {{-- <th class="no-sort"></th> --}}
+                                <th class="no-sort"></th>
                                 <th class="text-center">Employee</th>
                                 <th class="text-center">Month</th>
                                 <th class="text-center">Year</th>
@@ -65,6 +65,11 @@
                     {
                         data: 'amount',
                         name: 'amount',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
                         class: 'text-center'
                     },
                     {

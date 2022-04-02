@@ -13,7 +13,7 @@ class StoreSalaryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreSalaryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "user_id" => "required",
+            "month" => "required",
+            "year" => "required",
+            "amount" => "required"
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            "user_id.required" => "The employee field is required."
         ];
     }
 }
