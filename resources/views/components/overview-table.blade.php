@@ -3,7 +3,10 @@
         <thead>
             <th>Employee</th>
             @foreach ($periods as $period)
-                <th>{{ $period->format('d') }}</th>
+                <th @if ($period->format('D') == 'Sat' or $period->format('D') == 'Sun') class="text-danger bg-light font-weight-bold" @endif>
+                    <span>{{ $period->format('d') }}</span>
+                    <span>{{ $period->format('D') }}</span>
+                </th>
             @endforeach
         </thead>
 
@@ -44,7 +47,7 @@
                             }
                         @endphp
 
-                        <td>
+                        <td @if ($period->format('D') == 'Sat' or $period->format('D') == 'Sun') class="bg-light" @endif>
                             <div>{!! $checkin_icon !!}</div>
                             <div>{!! $checkout_icon !!}</div>
                         </td>

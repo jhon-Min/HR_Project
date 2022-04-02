@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\WebAuthnRegisterController;
 use App\Http\Controllers\Auth\WebAuthnLoginController;
+use App\Http\Controllers\SalaryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +58,10 @@ Route::middleware('auth')->group(function () {
     Route::get('permission/datatable/ssd', 'PermissionController@ssd')->name('permission.ssd');
 
     Route::resource('company-setting', 'CompanySettingController')->only(['edit', 'update', 'show']);
+
+    Route::resource('salary', 'SalaryController');
+    Route::get('salary/datatable/ssd', 'SalaryController@ssd')->name('salary.ssd');
+
 
     // User Profile Controller
     Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');
