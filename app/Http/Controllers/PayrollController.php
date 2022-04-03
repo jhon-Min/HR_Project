@@ -22,12 +22,20 @@ class PayrollController extends Controller
         $year = $request->year;
         $start = $year . '-' . $month . '-01';
         $end = Carbon::parse($start)->endOfMonth()->format('Y-m-d');
-        $dayInMonth = Carbon::parse($start)->daysInMonth;
+
+        // $dayInMonth = Carbon::parse($start)->daysInMonth;
+        $dayInMonth = Carbon::now()->month($month)->daysInMonth;
+
+        $workingDays = Carbon::parse($start)->subDays(1)->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekday();
+        }, Carbon::parse($end));
+
+        $offDays = $dayInMonth - $workingDays;
 
         $periods = new CarbonPeriod($start, $end);
         $employees = User::orderBy('employee_id')->where('employee_id', 'like', '%' . $request->employee_name . '%')->get();
         $company = CompanySetting::findOrFail(1);
         $attendances = CheckInOut::whereMonth('date', $month)->whereYear('date', $year)->get();
-        return view('payroll.payroll-table', compact('periods', 'employees', 'company', 'attendances', 'dayInMonth'));
+        return view('payroll.payroll-table', compact('periods', 'employees', 'company', 'attendances', 'dayInMonth', 'workingDays', 'offDays'));
     }
 }
