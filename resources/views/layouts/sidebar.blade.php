@@ -70,6 +70,10 @@
                         </x-menu-item>
                     @endcan
 
+                    <x-menu-item icon="fa-solid fa-money-check-dollar" link="{{ route('payroll.index') }}">
+                        Payroll
+                    </x-menu-item>
+
                     @can('view_department')
                         <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department
                         </x-menu-item>

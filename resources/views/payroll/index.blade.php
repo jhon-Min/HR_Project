@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('title')
-    Attendance Overview
+    Payroll Overview
 @endsection
 
 @section('banner')
-    Attendance Overview
+    Payroll Overview
 @endsection
 
 @section('content')
@@ -61,7 +61,7 @@
                             </div>
                         </div>
 
-                        <div class="overview-table"></div>
+                        <div class="payroll-table"></div>
                     </div>
                 </div>
             </div>
@@ -71,25 +71,25 @@
 
 @section('script')
     <script>
-        function overviewTable() {
+        function payrollTable() {
             var month = $('#select-month').val();
             var year = $('#select-year').val();
             var employee_name = $('#employee-name').val();
 
             $.ajax({
-                url: `/attendance-overview-table?employee_name=${employee_name}&month=${month}&year=${year}`,
+                url: `/payroll-table?employee_name=${employee_name}&month=${month}&year=${year}`,
                 type: 'GET',
                 success: function(res) {
-                    $('.overview-table').html(res);
+                    $('.payroll-table').html(res);
                 }
             })
         }
 
         $('.search-btn').on('click', function(e) {
             e.preventDefault();
-            overviewTable();
+            payrollTable();
         })
 
-        overviewTable();
+        payrollTable();
     </script>
 @endsection
