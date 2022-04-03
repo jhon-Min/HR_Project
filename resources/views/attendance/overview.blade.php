@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="col-3">
-                                <button class="btn btn-theme btn-small btn-block btn-overview">Search</button>
+                                <button class="btn btn-theme btn-small btn-block search-btn">Search</button>
                             </div>
                         </div>
 
@@ -85,7 +85,7 @@
             })
         }
 
-        $('.btn-overview').on('click', function(e) {
+        $('.search-btn').on('click', function(e) {
             e.preventDefault();
             overviewTable();
         })

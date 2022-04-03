@@ -54,4 +54,9 @@ class MyAttendanceController extends Controller
         $attendances = CheckInOut::whereMonth('date', $month)->whereYear('date', $year)->get();
         return view('components.overview-table', compact('periods', 'employees', 'company', 'attendances'));
     }
+
+    public function payroll(Request $request)
+    {
+        return $request;
+    }
 }

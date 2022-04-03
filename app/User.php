@@ -53,4 +53,9 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
 
         return asset('default-avatar.png');
     }
+
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class, 'user_id', 'id');
+    }
 }

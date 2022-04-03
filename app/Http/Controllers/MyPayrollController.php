@@ -9,14 +9,14 @@ use App\CompanySetting;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 
-class PayrollController extends Controller
+class MyPayrollController extends Controller
 {
-    public function index()
+    public function ssd()
     {
         return view('payroll.index');
     }
 
-    public function payrollTable(Request $request)
+    public function myPayroll(Request $request)
     {
         $month = $request->month;
         $year = $request->year;
@@ -33,7 +33,7 @@ class PayrollController extends Controller
         $offDays = $dayInMonth - $workingDays;
 
         $periods = new CarbonPeriod($start, $end);
-        $employees = User::orderBy('employee_id')->where('employee_id', 'like', '%' . $request->employee_name . '%')->get();
+        $employees = User::orderBy('employee_id')->where('id', auth()->user()->id)->get();
         $company = CompanySetting::findOrFail(1);
         $attendances = CheckInOut::whereMonth('date', $month)->whereYear('date', $year)->get();
         return view('payroll.payroll-table', compact('periods', 'employees', 'company', 'attendances', 'dayInMonth', 'workingDays', 'offDays', 'month', 'year'));

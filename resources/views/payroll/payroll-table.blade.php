@@ -8,7 +8,7 @@
             <th>Off Day</th>
             <th>Attendance Day</th>
             <th>Leave</th>
-            <th>Per Day(MMK)</th>
+            <th>PerDay</th>
             <th>Total(MMK)</th>
         </thead>
 
@@ -16,6 +16,11 @@
             @foreach ($employees as $employee)
                 @php
                     $attendanceDay = 0;
+                    $salary = collect($employee->salaries)
+                        ->where('month', $month)
+                        ->where('year', $year)
+                        ->first();
+                    $perday = $salary ? $salary->amount / $workingDays : 0;
                 @endphp
 
                 @foreach ($periods as $period)
@@ -58,6 +63,7 @@
 
                 @php
                     $leaveDays = $workingDays - $attendanceDay;
+                    $total = $attendanceDay * $perday;
                 @endphp
 
                 <tr>
@@ -75,6 +81,8 @@
                     <td>{{ $offDays }}</td>
                     <td>{{ $attendanceDay }}</td>
                     <td>{{ $leaveDays }}</td>
+                    <td>{{ number_format($perday) }}</td>
+                    <td>{{ number_format($total) }} MMK</td>
                 </tr>
             @endforeach
         </tbody>

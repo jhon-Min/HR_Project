@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-12 col-lg-9">
+            <div class="col-12 col-md-12 col-lg-10 mb-3">
                 <div class="card mb-4">
                     <div class="card-body text-center">
                         <img src="{{ asset('img/QR code_Monochromatic.png') }}" alt="" style="width: 250px">
@@ -40,11 +40,9 @@
                     </div>
                 </div>
 
-                <div class="card mb-8">
+                <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="mb-5 text-theme font-weight-bold">Attendance Records</h5>
-
-                        <div class="row">
+                        <div class="row mb-4">
                             <div class="col-4">
                                 <div class="form-group mb-3">
                                     <select class="form-control" name="" id="select-month">
@@ -82,11 +80,19 @@
                             </div>
 
                             <div class="col-4">
-                                <button class="btn btn-theme btn-small btn-block btn-overview">Search</button>
+                                <button class="btn btn-theme btn-small btn-block search-btn">Search</button>
                             </div>
                         </div>
 
-                        <div class="overview-table mb-5"></div>
+                        <div class="mb-5">
+                            <h5 class="text-theme font-weight-bold">Your Payroll</h5>
+                            <div class="payroll-table"></div>
+                        </div>
+
+                        <div class="mb-5">
+                            <h5 class="text-theme font-weight-bold">Attendance Records</h5>
+                            <div class="overview-table"></div>
+                        </div>
 
                         <table class="table table-hover table-bordered w-100" id="dataTable">
                             <thead>
@@ -97,6 +103,7 @@
                                 <th class="text-center">Check-out Time</th>
                             </thead>
                         </table>
+
                     </div>
                 </div>
 
@@ -195,6 +202,8 @@
                 qrScanner.stop();
             })
 
+            overviewTable();
+
             function overviewTable() {
                 var month = $('#select-month').val();
                 var year = $('#select-year').val();
@@ -210,12 +219,26 @@
                 table.ajax.url(`/my-attendance/datatable/ssd?month=${month}&year=${year}`).load();
             }
 
-            $('.btn-overview').on('click', function(e) {
+            payrollTable();
+
+            function payrollTable() {
+                var month = $('#select-month').val();
+                var year = $('#select-year').val();
+
+                $.ajax({
+                    url: `/my-payroll?month=${month}&year=${year}`,
+                    type: 'GET',
+                    success: function(res) {
+                        $('.payroll-table').html(res);
+                    }
+                })
+            }
+
+            $('.search-btn').on('click', function(e) {
                 e.preventDefault();
                 overviewTable();
+                payrollTable();
             })
-
-            overviewTable();
         })
     </script>
 @endsection
