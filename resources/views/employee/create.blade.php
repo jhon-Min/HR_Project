@@ -4,16 +4,6 @@
     Create Employee
 @endsection
 
-@section('head')
-    <style>
-        .preview_img img {
-            border-radius: 5px;
-            width: 100px;
-            object-fit: cover;
-        }
-
-    </style>
-@endsection
 
 @section('banner')
     Employee Create Form

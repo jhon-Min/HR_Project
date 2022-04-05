@@ -60,3 +60,17 @@ $semi-dark: #555;
     }
 }
 
+.preview_img img {
+    border-radius: 5px;
+    width: 100px;
+    object-fit: cover;
+    margin: 3px;
+}
+
+.profile-thumb-2{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid $primary-col;
+}
+

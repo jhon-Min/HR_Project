@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-11">
+            <div class="col-12 col-lg-12">
                 @can('create_project')
                     <div class="mb-2">
                         <a href="{{ route('project.create') }}" class="btn btn-theme px-3 font-weight-bold">
@@ -22,7 +22,14 @@
                         <table class="table table-hover table-bordered w-100" id="dataTable">
                             <thead>
                                 <th class="no-sort"></th>
-                                <th class="text-center">Department</th>
+                                <th class="text-center">Project Name</th>
+                                <th class="text-center">Description</th>
+                                <th class="text-center">Leaders</th>
+                                <th class="text-center">Members</th>
+                                <th class="text-center">Start Date</th>
+                                <th class="text-center">Deadline</th>
+                                <th class="text-center">Priority</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center no-sort">Action</th>
                                 <th class="text-center hidden no-sort">Updated_at</th>
                             </thead>
@@ -38,7 +45,7 @@
     <script>
         $(document).ready(function() {
             var table = $('#dataTable').DataTable({
-                ajax: '{{ route('department.ssd') }}',
+                ajax: '{{ route('project.ssd') }}',
                 columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
@@ -47,6 +54,41 @@
                     {
                         data: 'title',
                         name: 'title',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'description',
+                        name: 'description',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'leaders',
+                        name: 'leaders',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'members',
+                        name: 'members',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'start_date',
+                        name: 'start_date',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'deadline',
+                        name: 'deadline',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'priority',
+                        name: 'priority',
+                        class: 'text-center'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status',
                         class: 'text-center'
                     },
                     {
@@ -60,9 +102,9 @@
                         class: 'text-center'
                     },
                 ],
-                order: [
-                    [3, "desc"]
-                ],
+                // order: [
+                //     [3, "desc"]
+                // ],
             });
 
             $(document).on('click', '.del-btn', function(e, id) {
