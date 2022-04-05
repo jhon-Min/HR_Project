@@ -4,7 +4,6 @@
     Create Department
 @endsection
 
-
 @section('banner')
     Project Create Form
 @endsection
@@ -13,6 +12,15 @@
     <div class="container pt-3 pb-8">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
+                <x-bread-crumb>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <a href="{{ route('project.index') }}">Projects</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Create Project
+                    </li>
+                </x-bread-crumb>
+
                 <div class="card">
                     <div class="card-body px-4 ">
                         <form action="{{ route('project.store') }}" id="createForm" method="POST"
