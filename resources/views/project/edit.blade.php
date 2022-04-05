@@ -101,7 +101,7 @@
                                 <label for="" class="text-black-50">Project Members</label>
                                 <select class="form-control select-custom-multiple" name="members[]" multiple>
                                     @foreach ($employees as $employee)
-                                        <option value="{{ $employee->id }}" @if(in_array($employee->id, collect($project->leaders)->pluck('id')->toArray())) selected @endif>
+                                        <option value="{{ $employee->id }}" @if(in_array($employee->id, collect($project->members)->pluck('id')->toArray())) selected @endif>
                                             {{ $employee->name }}
                                             ({{ $employee->employee_id }})
                                         </option>

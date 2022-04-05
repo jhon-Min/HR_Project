@@ -30,6 +30,8 @@ class UpdateProjectRequest extends FormRequest
             "deadline" => "required",
             "priority" => "required",
             "status" => "required",
+            "images.*" => "mimes:png,jpg",
+            "files.*" => "mimes:pdf|max:10000"
         ];
     }
 }

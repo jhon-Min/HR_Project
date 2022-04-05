@@ -118,7 +118,7 @@
                         Swal.fire("Deleted!", "Your file has been deleted.", "success");
                         $.ajax({
                             method: "DELETE",
-                            url: `/department/${id}`,
+                            url: `/project/${id}`,
                         }).done(function(res) {
                             table.ajax.reload();
                         })

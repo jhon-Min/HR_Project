@@ -47,6 +47,9 @@
                                 @error('images')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
+                                @error('images.*')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group mb-4">

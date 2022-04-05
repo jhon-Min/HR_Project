@@ -30,6 +30,10 @@ class StoreProjectRequest extends FormRequest
             "deadline" => "required",
             "priority" => "required",
             "status" => "required",
+            "images" => "nullable",
+            "images.*" => "file|mimes:jpg,png",
+            "files" => "nullable",
+            "files.*" => "mimes:pdf|max:10000"
         ];
     }
 }

@@ -158,19 +158,8 @@ class ProjectController extends Controller
         $project->status = $request->status;
         $project->save();
 
-        foreach (($request->leaders ?? []) as $leader) {
-            $project_leader = new ProjectLeader();
-            $project_leader->project_id = $project->id;
-            $project_leader->user_id = $leader;
-            $project_leader->save();
-        }
-
-        foreach (($request->members ?? []) as $member) {
-            $project_member = new ProjectMember();
-            $project_member->project_id = $project->id;
-            $project_member->user_id = $member;
-            $project_member->save();
-        }
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
 
         return redirect()->route('project.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Created', 'message' => $project->title . ' is successfully created']);
     }
@@ -207,7 +196,43 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        return $request;
+        $images = $project->images;
+        if ($request->hasFile('images')) {
+            $images = [];
+            $img_files = $request->file('images');
+            foreach ($img_files as $img_file) {
+                $newName = 'project_' . uniqid() . '.' . $img_file->getClientOriginalExtension();
+                Storage::disk('public')->put('project/' . $newName, file_get_contents($img_file));
+                $images[] = $newName;
+            }
+        }
+
+        $files = $project->files;
+        if ($request->hasFile('files')) {
+            $files = [];
+            $file_names = $request->file('files');
+            foreach ($file_names as $file_name) {
+                $newName = 'project_' . uniqid() . '.' . $file_name->getClientOriginalExtension();
+                Storage::disk('public')->put('project/' . $newName, file_get_contents($file_name));
+                $files[] = $newName;
+            }
+        }
+
+        $project->title = $request->title;
+        $project->description = $request->description;
+        $project->images = $images;
+        $project->files = $files;
+        $project->start_date = $request->start_date;
+        $project->deadline = $request->deadline;
+        $project->priority = $request->priority;
+        $project->status = $request->status;
+        $project->update();
+
+
+        $project->leaders()->sync($request->leaders);
+        $project->members()->sync($request->members);
+
+        return redirect()->route('project.index')->with('create_alert', ['icon' => 'success', 'title' => 'Successfully Updated', 'message' => $project->title . ' is successfully updated']);
     }
 
     /**
@@ -221,6 +246,21 @@ class ProjectController extends Controller
         if (!auth()->user()->can('delete_project')) {
             abort(403, 'Unauthorized action');
         }
+
+        if ($project->images) {
+            foreach ($project->images as $img) {
+                Storage::disk('public')->delete('project/' . $img);
+            }
+        }
+
+        if ($project->files) {
+            foreach ($project->files as $pdf) {
+                Storage::disk('public')->delete('project/' . $pdf);
+            }
+        }
+
+        $project->leaders()->detach();
+        $project->members()->detach();
         $project->delete();
     }
 }
