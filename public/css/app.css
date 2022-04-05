@@ -9078,20 +9078,6 @@ body {
   font-size: 13px;
 }
 
-.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
-  content: "\F111";
-  font-family: "Font Awesome 5 Free";
-  font-weight: 400;
-  font-style: normal;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin-right: 10px;
-  font-size: 8px;
-}
-
 .sidebar-wrapper .sidebar-menu ul li a span.label,
 .sidebar-wrapper .sidebar-menu ul li a span.badge {
   float: right;
@@ -9434,5 +9420,53 @@ table.dataTable > tbody > tr.child ul.dtr-details > li {
 
 .bottom-menu a i {
   font-size: 17px;
+}
+
+.preview_img img {
+  border-radius: 5px;
+  width: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 3px;
+}
+
+.leader-thumb-2,
+.member-thumb-2 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #4cd195;
+  margin-left: -15px;
+}
+
+.member-thumb-2 {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #555;
+}
+
+.leader-thumb-2:first-child {
+  margin-left: 0;
+}
+
+.member-thumb-2:first-child {
+  margin-left: 0;
+}
+
+.pdf-thumbnail {
+  background: #fff;
+  width: 60px;
+  height: 75px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 3px;
+  display: inline-block;
+  text-align: center;
+  color: #000;
+}
+
+.pdf-thumbnail i {
+  font-size: 30px;
 }
 

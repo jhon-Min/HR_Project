@@ -18,16 +18,11 @@ use App\Http\Controllers\SalaryController;
 
 Auth::routes();
 
-Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])
-    ->name('webauthn.register.options');
-Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])
-    ->name('webauthn.register');
+Route::post('webauthn/register/options', [WebAuthnRegisterController::class, 'options'])->name('webauthn.register.options');
+Route::post('webauthn/register', [WebAuthnRegisterController::class, 'register'])->name('webauthn.register');
 
-Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'])
-    ->name('webauthn.login.options');
-Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])
-    ->name('webauthn.login');
-
+Route::post('webauthn/login/options', [WebAuthnLoginController::class, 'options'])->name('webauthn.login.options');
+Route::post('webauthn/login', [WebAuthnLoginController::class, 'login'])->name('webauthn.login');
 
 Route::get('check-in-out', 'CheckInOutController@checkInOut')->name('check-in-out');
 Route::post('check-process', 'CheckInOutController@checkProcess')->name('check-process');
@@ -47,7 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('my-attendance/datatable/ssd', 'MyAttendanceController@myAttendance')->name('my-attendance.ssd');
     Route::get('my-overview', 'MyAttendanceController@myOverview')->name('my-attendance.overview');
-    Route::get('my-payroll-ssd', 'MyPayrollController@ssd');
+    // Route::get('my-payroll-ssd', 'MyPayrollController@ssd');
     Route::get('my-payroll', 'MyPayrollController@myPayroll')->name('my-payroll.payroll');
 
     Route::resource('department', 'DepartmentController');
@@ -66,6 +61,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('payroll', 'PayrollController@index')->name('payroll.index');
     Route::get('payroll-table', 'PayrollController@payrollTable')->name('payroll.table');
+
+    Route::resource('project', 'ProjectController');
+    Route::get('project/datatable/ssd', 'ProjectController@ssd')->name('project.ssd');
 
     // User Profile Controller
     Route::get('profile', 'ProfileController@profile')->name('user-profile.profile');

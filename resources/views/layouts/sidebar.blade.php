@@ -53,26 +53,52 @@
                         <x-menu-item icon="fa fa-users" link="{{ route('employee.index') }}">Employees</x-menu-item>
                     @endcan
 
-                    @can('view_attendance')
-                        <x-menu-item icon="fa-solid fa-calendar-days" link="{{ route('attendance.index') }}">Attendance
-                        </x-menu-item>
+                    @can('view_attendance', 'view_attendance_overview')
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span>Attendance Management</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    @can('view_attendance')
+                                        <x-menu-item icon="fa-solid fa-clipboard" link="{{ route('attendance.index') }}">
+                                            Attendance
+                                        </x-menu-item>
+                                    @endcan
+
+                                    @can('view_attendance_overview')
+                                        <x-menu-item icon="fa-solid fa-chalkboard-user"
+                                            link="{{ route('attendance.overview') }}">
+                                            Overview
+                                        </x-menu-item>
+                                    @endcan
+                                </ul>
+                            </div>
+                        </li>
                     @endcan
 
-                    @can('view_attendance_overview')
-                        <x-menu-item icon="fa-solid fa-chalkboard-user" link="{{ route('attendance.overview') }}">
-                            Attendance Overview
-                        </x-menu-item>
-                    @endcan
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa-solid fa-coins"></i>
+                            <span>Salary Management</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                @can('view_salary')
+                                    <x-menu-item icon="fa-solid fa-circle-dollar-to-slot"
+                                        link="{{ route('salary.index') }}">
+                                        Salary Info
+                                    </x-menu-item>
+                                @endcan
 
-                    @can('view_salary')
-                        <x-menu-item icon="fa-solid fa-circle-dollar-to-slot" link="{{ route('salary.index') }}">
-                            Salary Management
-                        </x-menu-item>
-                    @endcan
-
-                    <x-menu-item icon="fa-solid fa-money-check-dollar" link="{{ route('payroll.index') }}">
-                        Payroll
-                    </x-menu-item>
+                                <x-menu-item icon="fa-solid fa-money-check-dollar"
+                                    link="{{ route('payroll.index') }}">
+                                    Payroll
+                                </x-menu-item>
+                            </ul>
+                        </div>
+                    </li>
 
                     @can('view_department')
                         <x-menu-item icon="fa-solid fa-sitemap" link="{{ route('department.index') }}">Department
@@ -94,36 +120,18 @@
                         </x-menu-item>
                     @endcan
 
-                    <li class="sidebar-dropdown">
-                        <a href="#">
-                            <i class="fa fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                            <span class="badge badge-pill badge-warning">New</span>
-                        </a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li>
-                                    <a href="#">Dashboard 1
-                                        <span class="badge badge-pill badge-success">Pro</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="#">Dashboard 3</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
+                    @can('view_project')
+                        <x-menu-item icon="fa-solid fa-diagram-project" link="{{ route('project.index') }}">
+                            Projects
+                        </x-menu-item>
+                    @endcan
                 </ul>
             </div>
             <!-- sidebar-menu  -->
         </div>
         <!-- sidebar-content  -->
         <div class="sidebar-footer">
-            <a href="#">
+            {{-- <a href="#">
                 <i class="fa fa-bell"></i>
                 <span class="badge badge-pill badge-warning notification">3</span>
             </a>
@@ -134,7 +142,7 @@
             <a href="#">
                 <i class="fa fa-cog"></i>
                 <span class="badge-sonar"></span>
-            </a>
+            </a> --}}
             <a href="#" class="btn-logout" id="logoutBtn">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </a>

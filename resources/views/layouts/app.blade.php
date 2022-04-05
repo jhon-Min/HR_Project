@@ -106,7 +106,9 @@
     <script src="{{ asset('js/dtable.js') }}"></script>
     @yield('script')
     <script>
-        $('.select-custom-multiple').select2();
+        $('.select-custom-multiple').select2({
+            placeholder: '-- Please Choose --',
+        });
     </script>
 
     @auth
