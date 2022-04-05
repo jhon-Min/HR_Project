@@ -25,6 +25,7 @@
         "jquery": "^3.6.0",
         "mdbootstrap": "^4.20.0",
         "qr-scanner": "^1.4.1",
-        "sweetalert2": "^11.4.6"
+        "sweetalert2": "^11.4.6",
+        "viewerjs": "^1.10.5"
     }
 }

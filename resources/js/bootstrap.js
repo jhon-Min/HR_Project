@@ -7,12 +7,16 @@ window._ = require("lodash");
  */
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import Viewer from "viewerjs";
+import QrScanner from "qr-scanner";
 
 try {
     // window.Popper = require('popper.js').default;
+    // window.QrScanner = require("qr-scanner/qr-scanner.umd.min.js");
     window.$ = window.jQuery = require("jquery");
-    window.QrScanner = require("qr-scanner/qr-scanner.umd.min.js"); // if installed via package
+    window.QrScanner = QrScanner;
     window.Swal = Swal;
+    window.Viewer = Viewer;
     // require('bootstrap');
 } catch (e) {}
 

@@ -73,13 +73,15 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="mb-3">Images</h5>
-                                @isset($project->images)
-                                    @foreach ($project->images as $image)
-                                    <img src="{{ asset('storage/project/'.$image) }}" alt="" class="show-img shadow-sm mr-1 mb-2">
-                                    @endforeach
-                                @else
-                                    <p class="text-semi text-center">No Image Here</p>
-                                @endisset
+                                <div id="imgs">
+                                    @isset($project->images)
+                                        @foreach ($project->images as $image)
+                                        <img src="{{ asset('storage/project/'.$image) }}" alt="" class="show-img shadow-sm mr-1 mb-2">
+                                        @endforeach
+                                    @else
+                                        <p class="text-semi text-center">No Image Here</p>
+                                    @endisset
+                                </div>
                             </div>
                         </div>
 
@@ -131,6 +133,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            new Viewer(document.getElementById('imgs'));
+        })
+    </script>
 @endsection
 
 
