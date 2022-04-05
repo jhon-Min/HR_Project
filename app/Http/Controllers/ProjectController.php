@@ -32,24 +32,29 @@ class ProjectController extends Controller
 
     public function ssd(Request $request)
     {
-        $projects = Project::query();
+        $projects = Project::with('leaders', 'members');
         return DataTables::of($projects)
             ->editColumn('updated_at', function ($each) {
                 return Carbon::parse($each->update_at)->format('Y-m-d H:i:s');
             })
-            ->editColumn('description', function ($each) {
-                return Str::limit($each->description, 50, ' ....');
-            })
+            // ->editColumn('description', function ($each) {
+            //     return Str::limit($each->description, 50, ' ....');
+            // })
             ->addColumn('leaders', function ($each) {
-                $output = '';
+                $output = "<div class=' position-absolute'>";
                 foreach ($each->leaders as $leader) {
-                    $output .= '<img src="' . $leader->profile_img_path() . '" alt="" class="profile-thumb-2">';
+                    $output .= '<img src="' . $leader->profile_img_path() . '" alt="" class="leader-thumb-2 shadow-sm">';
                 }
 
                 return $output;
             })
             ->addColumn('members', function ($each) {
-                return '-';
+                $output = "<div class=' position-absolute'>";
+                foreach ($each->members as $member) {
+                    $output .= '<img src="' . $member->profile_img_path() . '" alt="" class="member-thumb-2 shadow-sm">';
+                }
+
+                return $output;
             })
             ->editColumn('status', function ($each) {
                 if ($each->status == 'pending') {
@@ -89,7 +94,7 @@ class ProjectController extends Controller
 
                 return '<div class="action-icon">' . $edit . $detail . $del . '</div>';
             })
-            ->rawColumns(['action', 'status', 'priority', 'leaders'])
+            ->rawColumns(['action', 'status', 'priority', 'leaders', 'members'])
             ->make(true);
     }
 
@@ -189,7 +194,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $employees = User::all();
+        return view('project.edit', compact('project', 'employees'));
     }
 
     /**
@@ -201,7 +207,7 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        return $request;
     }
 
     /**

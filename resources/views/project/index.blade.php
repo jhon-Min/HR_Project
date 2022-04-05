@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-12">
+            <div class="col-12">
                 @can('create_project')
                     <div class="mb-2">
                         <a href="{{ route('project.create') }}" class="btn btn-theme px-3 font-weight-bold">
@@ -23,15 +23,14 @@
                             <thead>
                                 <th class="no-sort"></th>
                                 <th class="text-center">Project Name</th>
-                                <th class="text-center">Description</th>
-                                <th class="text-center">Leaders</th>
-                                <th class="text-center">Members</th>
+                                <th class="text-center no-sort">Leaders</th>
+                                <th class="text-center no-sort">Members</th>
                                 <th class="text-center">Start Date</th>
                                 <th class="text-center">Deadline</th>
                                 <th class="text-center">Priority</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center no-sort">Action</th>
-                                <th class="text-center hidden no-sort">Updated_at</th>
+                                <th class="text-center hidden">Updated_at</th>
                             </thead>
                         </table>
                     </div>
@@ -54,11 +53,6 @@
                     {
                         data: 'title',
                         name: 'title',
-                        class: 'text-center'
-                    },
-                    {
-                        data: 'description',
-                        name: 'description',
                         class: 'text-center'
                     },
                     {
@@ -102,9 +96,9 @@
                         class: 'text-center'
                     },
                 ],
-                // order: [
-                //     [3, "desc"]
-                // ],
+                order: [
+                    [9, "desc"]
+                ],
             });
 
             $(document).on('click', '.del-btn', function(e, id) {
