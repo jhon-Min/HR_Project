@@ -13,6 +13,7 @@ $semi-dark: #555;
 @import "./sidebar";
 @import "./custom-dtb";
 @import "./employee";
+@import "./thumbnail";
 
 // ============= Global Css =============
 
@@ -67,44 +68,7 @@ $semi-dark: #555;
     margin: 3px;
 }
 
-.leader-thumb-2, .member-thumb-2{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid $primary-col;
-    margin-left: -15px;
-}
 
-.member-thumb-2{
-    width: 30px;
-    height: 30px;
-    border: 1px solid $semi-dark;
-}
-
-.leader-thumb-2:first-child{
-    margin-left: 0;
-}
-
-.member-thumb-2:first-child{
-    margin-left: 0;
-}
-
-.pdf-thumbnail {
-    background: #fff;
-    width: 60px;
-    height: 75px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 3px;
-    display: inline-block;
-    text-align: center;
-    color: #000;
-
-    i {
-        font-size: 30px;
-    }
-}
 
 
 

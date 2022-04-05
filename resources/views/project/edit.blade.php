@@ -13,6 +13,15 @@
     <div class="container pt-3 pb-8">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8">
+                <x-bread-crumb>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        <a href="{{ route('project.index') }}">Projects</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Edit Project
+                    </li>
+                </x-bread-crumb>
+
                 <div class="card">
                     <div class="card-body px-4 ">
                         <form action="{{ route('project.update', $project->id) }}" id="editForm" method="POST"

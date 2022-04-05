@@ -17,6 +17,10 @@
                     </div>
                 @endcan
 
+                <x-bread-crumb>
+                    <li class="breadcrumb-item active" aria-current="page">Projects</li>
+                </x-bread-crumb>
+
                 <div class="card mb-8">
                     <div class="card-body">
                         <table class="table table-hover table-bordered w-100" id="dataTable">
