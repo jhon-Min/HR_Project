@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('my-overview', 'MyAttendanceController@myOverview')->name('my-attendance.overview');
     // Route::get('my-payroll-ssd', 'MyPayrollController@ssd');
     Route::get('my-payroll', 'MyPayrollController@myPayroll')->name('my-payroll.payroll');
+    Route::resource('my-project', 'MyProjectController')->only(['index', 'show']);
+    Route::get('my-project/datatable/ssd', 'MyProjectController@ssd')->name('my-project.ssd');
+
 
     Route::resource('department', 'DepartmentController');
     Route::get('department/datatable/ssd', 'DepartmentController@ssd')->name('department.ssd');
