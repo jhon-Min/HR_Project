@@ -53,13 +53,12 @@
                         <x-bottom-item link="{{ route('home') }}" icon="fa-solid fa-house">Home</x-bottom-item>
 
                         <x-bottom-item link="{{ route('attendance-scan') }}" icon="fa-solid fa-clipboard-list">Your
-                            Attendance</x-bottom-item>
+                            Attendance
+                        </x-bottom-item>
 
-                        <a href="http://" class="text-dark">
-                            <i class="fa-solid fa-briefcase"></i>
-                            <br>
-                            <span>Your Projects</span>
-                        </a>
+                        <x-bottom-item link="{{ route('my-project.index') }}" icon="fa-solid fa-briefcase">
+                            My Projects
+                        </x-bottom-item>
 
                         <x-bottom-item link="{{ route('user-profile.profile') }}" icon="fa-solid fa-user">Profile
                         </x-bottom-item>
